@@ -27,13 +27,13 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("name");
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
-        String confirmPassword = req.getParameter("confirmPassword");
+        String name = req.getParameter("name") != null ? req.getParameter("name").trim() : null;
+        String email = req.getParameter("email") != null ? req.getParameter("email").trim() : null;
+        String password = req.getParameter("password") != null ? req.getParameter("password").trim() : null;
+        String confirmPassword = req.getParameter("confirmPassword") != null ? req.getParameter("confirmPassword").trim() : null;
 
-        if (name == null || name.trim().isEmpty() || email == null || email.trim().isEmpty() ||
-            password == null || password.trim().isEmpty() || confirmPassword == null || confirmPassword.trim().isEmpty()) {
+        if (name == null || name.isEmpty() || email == null || email.isEmpty() ||
+            password == null || password.isEmpty() || confirmPassword == null || confirmPassword.isEmpty()) {
             req.setAttribute("errorMessage", "All fields are required.");
             req.getRequestDispatcher("/register.jsp").forward(req, resp);
             return;
@@ -45,20 +45,20 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
 
-        // Rely on DB constraint for email uniqueness.
-        // We handle exceptions in case of duplicate email.
+        // Check if user already exists
+        if (userService.findByEmail(email) != null) {
+            req.setAttribute("errorMessage", "Email already in use.");
+            req.getRequestDispatcher("/register.jsp").forward(req, resp);
+            return;
+        }
+
         User user = new User();
         user.setName(name);
         user.setEmail(email);
 
         try {
             userService.registerUser(user, password);
-            if (user.getId() == 0) {
-               req.setAttribute("errorMessage", "Registration failed. Email might already be in use.");
-               req.getRequestDispatcher("/register.jsp").forward(req, resp);
-               return;
-            }
-            req.getSession().setAttribute("successMessage", "Account created successfully. Please login.");
+            req.getSession().setAttribute("successMessage", "Registration successful, please log in");
             resp.sendRedirect(req.getContextPath() + "/login");
         } catch (Exception e) {
             e.printStackTrace();
