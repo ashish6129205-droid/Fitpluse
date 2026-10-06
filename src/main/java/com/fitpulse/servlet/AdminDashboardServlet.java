@@ -1,0 +1,31 @@
+package com.fitpulse.servlet;
+
+import com.fitpulse.service.UserService;
+import com.fitpulse.service.WorkoutService;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+@WebServlet("/admin/dashboard")
+public class AdminDashboardServlet extends HttpServlet {
+    private UserService userService;
+    private WorkoutService workoutService;
+
+    @Override
+    public void init() throws ServletException {
+        this.userService = new UserService();
+        this.workoutService = new WorkoutService();
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("users", userService.getAllUsers());
+        req.setAttribute("recentWorkouts", workoutService.getAllWorkouts());
+
+        req.getRequestDispatcher("/admin/dashboard.jsp").forward(req, resp);
+    }
+}
