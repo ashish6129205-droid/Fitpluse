@@ -20,13 +20,25 @@ public class UserService {
     }
 
     public User authenticate(String email, String password) {
-
+        if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+            return null;
         }
-        List<User> all = userDao.findAll();
-        if (all != null && !all.isEmpty()) {
-            return all.get(0);
+
+        User user = userDao.findByEmail(email);
+
+        if (user != null && user.isActive()) {
+            if (PasswordUtil.verifyPassword(password, user.getPasswordHash())) {
+                return user;
+            }
         }
         return null;
+    }
+
+    public User findByEmail(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            return null;
+        }
+        return userDao.findByEmail(email);
     }
 
     public void registerUser(User user, String plainPassword) {
