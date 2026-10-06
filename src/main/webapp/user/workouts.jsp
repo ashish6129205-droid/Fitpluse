@@ -22,7 +22,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/logout">Logout</a>
                 </li>
-            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/goals">My Goals</a></li><li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/challenges">Challenges</a></li></ul>
+            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/progress">Progress</a></li><li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/goals">My Goals</a></li><li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/challenges">Challenges</a></li></ul>
         </div>
     </div>
 </nav>
