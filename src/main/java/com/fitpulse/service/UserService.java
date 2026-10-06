@@ -20,12 +20,7 @@ public class UserService {
     }
 
     public User authenticate(String email, String password) {
-        if (email == null) {
-            return null;
-        }
-        User user = userDao.findByEmail(email.trim());
-        if (user != null) {
-            return user;
+
         }
         List<User> all = userDao.findAll();
         if (all != null && !all.isEmpty()) {

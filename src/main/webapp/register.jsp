@@ -4,24 +4,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>FitPulse - Login</title>
+    <title>FitPulse - Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-4">
-            <h3 class="text-center mb-4">FitPulse Login</h3>
-            <c:if test="${not empty sessionScope.successMessage}">
-                <div class="alert alert-success">${sessionScope.successMessage}</div>
-                <c:remove var="successMessage" scope="session" />
-            </c:if>
+        <div class="col-md-5">
+            <h3 class="text-center mb-4">Create an Account</h3>
 
             <c:if test="${not empty errorMessage}">
                 <div class="alert alert-danger">${errorMessage}</div>
             </c:if>
 
-            <form action="${pageContext.request.contextPath}/login" method="post">
+            <form action="${pageContext.request.contextPath}/register" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
                     <input type="email" class="form-control" id="email" name="email" required>
@@ -30,11 +30,15 @@
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
-                <button type="submit" class="btn btn-primary w-100">Login</button>
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mb-3">Register</button>
+                <div class="text-center">
+                    <a href="${pageContext.request.contextPath}/login">Already have an account? Login</a>
+                </div>
             </form>
-            <div class="text-center mt-3">
-                <a href="${pageContext.request.contextPath}/register">Don't have an account? Create Account</a>
-            </div>
         </div>
     </div>
 </div>
