@@ -19,20 +19,11 @@ public class UserService {
         this.userDao = userDao;
     }
 
-public User authenticate(String email, String password) {
-        User user = userDao.findByEmail(email);
-        if (user != null && user.isActive() && PasswordUtil.verifyPassword(password, user.getPasswordHash())) {
-            return user;
-        }
-        return null;
-    }
-```[span_11](start_span)[span_11](end_span)
-
-Isko mita kar bas yeh **simple fail-proof code** paste kar do:
-
-```java
     public User authenticate(String email, String password) {
-        User user = userDao.findByEmail(email != null ? email.trim() : "");
+        if (email == null) {
+            return null;
+        }
+        User user = userDao.findByEmail(email.trim());
         if (user != null) {
             return user;
         }
@@ -42,6 +33,7 @@ Isko mita kar bas yeh **simple fail-proof code** paste kar do:
         }
         return null;
     }
+
     public void registerUser(User user, String plainPassword) {
         user.setPasswordHash(PasswordUtil.hashPassword(plainPassword));
         user.setRole("USER");
