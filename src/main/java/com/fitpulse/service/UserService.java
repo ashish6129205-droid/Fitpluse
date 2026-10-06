@@ -19,42 +19,26 @@ public class UserService {
         this.userDao = userDao;
     }
 
-    public User findByEmail(String email) {
-        if (email == null) {
-            return null;
-        }
-        return userDao.findByEmail(email.trim());
-    }
-
     public User authenticate(String email, String password) {
-        if (email == null || password == null) {
+        if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
             return null;
         }
 
         User user = userDao.findByEmail(email.trim());
-        if (user != null) {
-            boolean matched = false;
-            try {
-                matched = PasswordUtil.verifyPassword(password, user.getPasswordHash());
-            } catch (Exception e) {
-                matched = false;
-            }
 
-            if (!matched && user.getPasswordHash() != null) {
-                matched = password.equals(user.getPasswordHash());
-            }
-
-            if (!matched && "user@fittrack.demo".equalsIgnoreCase(user.getEmail())) {
-                if ("User@123".equals(password) || "password".equals(password)) {
-                    matched = true;
-                }
-            }
-
-            if (matched) {
+        if (user != null && user.isActive()) {
+            if (PasswordUtil.verifyPassword(password, user.getPasswordHash())) {
                 return user;
             }
         }
         return null;
+    }
+
+    public User findByEmail(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            return null;
+        }
+        return userDao.findByEmail(email.trim());
     }
 
     public void registerUser(User user, String plainPassword) {
