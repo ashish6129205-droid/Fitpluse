@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <meta charset="UTF-8">
     <title>FitPulse - My Workouts</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -11,7 +13,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
         <a class="navbar-brand" href="#">FitPulse</a>
-        <div class="collapse navbar-collapse">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/user/dashboard">Dashboard</a>
@@ -78,7 +83,7 @@
             <p>No workouts logged yet.</p>
         </c:when>
         <c:otherwise>
-            <table class="table table-striped">
+            <table class="table table-striped table-responsive-stack">
                 <thead>
                     <tr>
                         <th>Date</th>
@@ -93,12 +98,12 @@
                 <tbody>
                     <c:forEach var="w" items="${workouts}">
                         <tr>
-                            <td>${w.workoutDate}</td>
-                            <td>${w.workoutType}</td>
-                            <td>${w.durationMin}</td>
-                            <td>${w.calories}</td>
-                            <td>${w.steps}</td>
-                            <td>${w.notes}</td>
+                            <td data-label="Date">${w.workoutDate}</td>
+                            <td data-label="Type">${w.workoutType}</td>
+                            <td data-label="Duration">${w.durationMin} min</td>
+                            <td data-label="Calories">${w.calories} kcal</td>
+                            <td data-label="Steps">${w.steps}</td>
+                            <td data-label="Notes"><c:out value="${w.notes}"/></td>
                             <td>
                                 <form action="${pageContext.request.contextPath}/user/workouts" method="post" style="display:inline;">
                                     <input type="hidden" name="action" value="delete">
@@ -113,5 +118,6 @@
         </c:otherwise>
     </c:choose>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
