@@ -23,7 +23,33 @@ public class ChallengeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession(false);
+        User user = (User) session.getAttribute("loggedUser");
+
         req.setAttribute("activeChallenges", challengeService.getActiveChallenges());
+        req.setAttribute("joinedIds", challengeService.getJoinedChallengeIds(user.getId()));
+        req.setAttribute("history", challengeService.getJoinedChallengesHistory(user.getId()));
+
         req.getRequestDispatcher("/user/challenges.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession(false);
+        User user = (User) session.getAttribute("loggedUser");
+
+        String action = req.getParameter("action");
+        if ("join".equals(action)) {
+            try {
+                int challengeId = Integer.parseInt(req.getParameter("challengeId"));
+                challengeService.joinChallenge(user.getId(), challengeId);
+                session.setAttribute("successMessage", "Challenge joined successfully!");
+            } catch (Exception e) {
+                e.printStackTrace();
+                session.setAttribute("errorMessage", "Failed to join challenge. You might have already joined.");
+            }
+        }
+
+        resp.sendRedirect(req.getContextPath() + "/user/challenges");
     }
 }

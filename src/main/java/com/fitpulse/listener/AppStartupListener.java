@@ -29,6 +29,9 @@ public class AppStartupListener implements ServletContextListener {
             // Ensure password_hash is wide enough
             stmt.execute("ALTER TABLE users ALTER COLUMN password_hash TYPE VARCHAR(255);");
             stmt.execute("ALTER TABLE workouts ADD COLUMN IF NOT EXISTS intensity VARCHAR(50);");
+            stmt.execute("ALTER TABLE challenges ADD COLUMN IF NOT EXISTS participant_count INTEGER NOT NULL DEFAULT 0;");
+            stmt.execute("ALTER TABLE challenge_participants ADD COLUMN IF NOT EXISTS status VARCHAR(20) DEFAULT 'ACTIVE';");
+            stmt.execute("CREATE TABLE IF NOT EXISTS activity_log (id SERIAL PRIMARY KEY, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, action VARCHAR(100) NOT NULL, details VARCHAR(500), created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);");
 
             // We no longer rely on seed.sql. We use UserService.upsertUser for deterministic hashing.
             seedDemoUsers();

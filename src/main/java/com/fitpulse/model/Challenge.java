@@ -16,13 +16,14 @@ public class Challenge {
     private boolean active;
     private Integer createdBy;
     private Timestamp createdAt;
+    private int participantCount;
 
     public Challenge() {
     }
 
     public Challenge(int id, String title, String description, String metric, double targetValue,
                      String unit, Date startDate, Date endDate, boolean active,
-                     Integer createdBy, Timestamp createdAt) {
+                     Integer createdBy, Timestamp createdAt, int participantCount) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -34,93 +35,42 @@ public class Challenge {
         this.active = active;
         this.createdBy = createdBy;
         this.createdAt = createdAt;
+        this.participantCount = participantCount;
     }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
-    public String getTitle() {
-        return title;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public String getMetric() { return metric; }
+    public void setMetric(String metric) { this.metric = metric; }
 
-    public String getDescription() {
-        return description;
-    }
+    public double getTargetValue() { return targetValue; }
+    public void setTargetValue(double targetValue) { this.targetValue = targetValue; }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public String getUnit() { return unit; }
+    public void setUnit(String unit) { this.unit = unit; }
 
-    public String getMetric() {
-        return metric;
-    }
+    public Date getStartDate() { return startDate; }
+    public void setStartDate(Date startDate) { this.startDate = startDate; }
 
-    public void setMetric(String metric) {
-        this.metric = metric;
-    }
+    public Date getEndDate() { return endDate; }
+    public void setEndDate(Date endDate) { this.endDate = endDate; }
 
-    public double getTargetValue() {
-        return targetValue;
-    }
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 
-    public void setTargetValue(double targetValue) {
-        this.targetValue = targetValue;
-    }
+    public Integer getCreatedBy() { return createdBy; }
+    public void setCreatedBy(Integer createdBy) { this.createdBy = createdBy; }
 
-    public String getUnit() {
-        return unit;
-    }
+    public Timestamp getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
 
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public Integer getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(Integer createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
+    public int getParticipantCount() { return participantCount; }
+    public void setParticipantCount(int participantCount) { this.participantCount = participantCount; }
 }
