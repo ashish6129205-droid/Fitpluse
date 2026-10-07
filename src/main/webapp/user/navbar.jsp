@@ -25,10 +25,13 @@
                     <a class="nav-link ${pageContext.request.requestURI.endsWith('/challenges.jsp') ? 'active' : ''}" href="${pageContext.request.contextPath}/user/challenges">Challenges</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link ${pageContext.request.requestURI.endsWith('/community.jsp') ? 'active' : ''}" href="${pageContext.request.contextPath}/user/community">Community</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link ${pageContext.request.requestURI.endsWith('/profile.jsp') ? 'active' : ''}" href="${pageContext.request.contextPath}/user/profile">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ${pageContext.request.requestURI.endsWith("/leaderboard.jsp") ? "active" : ""}" href="${pageContext.request.contextPath}/user/leaderboard">Leaderboard</a>
+                    <a class="nav-link ${pageContext.request.requestURI.endsWith('/leaderboard.jsp') ? 'active' : ''}" href="${pageContext.request.contextPath}/user/leaderboard">Leaderboard</a>
                 </li>
                 <li class="nav-item ms-lg-3">
                     <a class="nav-link text-danger" href="${pageContext.request.contextPath}/logout">Logout</a>
