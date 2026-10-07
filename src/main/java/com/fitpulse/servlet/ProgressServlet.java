@@ -38,10 +38,13 @@ public class ProgressServlet extends HttpServlet {
 
         String action = req.getParameter("action");
         if ("delete".equals(action)) {
-            int id = Integer.parseInt(req.getParameter("id"));
-            ProgressEntry entry = progressService.getProgressById(id);
-            if (entry != null && entry.getUserId() == user.getId()) {
-                progressService.deleteProgress(id);
+            int id = 0;
+            try { id = Integer.parseInt(req.getParameter("id")); } catch(NumberFormatException ignore) {}
+            if (id > 0) {
+                ProgressEntry entry = progressService.getProgressById(id);
+                if (entry != null && entry.getUserId() == user.getId()) {
+                    progressService.deleteProgress(id);
+                }
             }
         } else {
             Date entryDate = Date.valueOf(req.getParameter("entryDate"));

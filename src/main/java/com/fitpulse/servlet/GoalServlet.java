@@ -38,21 +38,28 @@ public class GoalServlet extends HttpServlet {
 
         String action = req.getParameter("action");
         if ("delete".equals(action)) {
-            int id = Integer.parseInt(req.getParameter("id"));
-            Goal goal = goalService.getGoalById(id);
-            if (goal != null && goal.getUserId() == user.getId()) {
-                goalService.deleteGoal(id);
+            int id = 0;
+            try { id = Integer.parseInt(req.getParameter("id")); } catch(NumberFormatException ignore) {}
+            if (id > 0) {
+                Goal goal = goalService.getGoalById(id);
+                if (goal != null && goal.getUserId() == user.getId()) {
+                    goalService.deleteGoal(id);
+                }
             }
         } else if ("complete".equals(action)) {
-            int id = Integer.parseInt(req.getParameter("id"));
-            Goal goal = goalService.getGoalById(id);
-            if (goal != null && goal.getUserId() == user.getId()) {
-                goal.setCompleted(true);
-                goalService.updateGoal(goal);
+            int id = 0;
+            try { id = Integer.parseInt(req.getParameter("id")); } catch(NumberFormatException ignore) {}
+            if (id > 0) {
+                Goal goal = goalService.getGoalById(id);
+                if (goal != null && goal.getUserId() == user.getId()) {
+                    goal.setCompleted(true);
+                    goalService.updateGoal(goal);
+                }
             }
         } else {
             String goalType = req.getParameter("goalType");
-            double targetValue = Double.parseDouble(req.getParameter("targetValue"));
+            double targetValue = 0;
+            try { targetValue = Double.parseDouble(req.getParameter("targetValue")); } catch(NumberFormatException ignore) {}
             String unit = req.getParameter("unit");
             Date deadline = null;
             if (req.getParameter("deadline") != null && !req.getParameter("deadline").isEmpty()) {

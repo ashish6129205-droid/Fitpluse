@@ -3,6 +3,7 @@ package com.fitpulse.servlet;
 import com.fitpulse.model.User;
 import com.fitpulse.model.Workout;
 import com.fitpulse.service.WorkoutService;
+import com.fitpulse.service.ActivityLogService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,7 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import com.fitpulse.service.ActivityLogService;
 import java.sql.Date;
 
 @WebServlet("/user/workouts")
@@ -39,15 +39,19 @@ public class WorkoutServlet extends HttpServlet {
 
         String action = req.getParameter("action");
         if ("delete".equals(action)) {
-            int id = Integer.parseInt(req.getParameter("id"));
-            Workout workout = workoutService.getWorkoutById(id);
-            if (workout != null && workout.getUserId() == user.getId()) {
-                workoutService.deleteWorkout(id);
-                session.setAttribute("successMessage", "Workout deleted successfully.");
+            int id = 0;
+            try { id = Integer.parseInt(req.getParameter("id")); } catch(NumberFormatException ignore) {}
+            if (id > 0) {
+                Workout workout = workoutService.getWorkoutById(id);
+                if (workout != null && workout.getUserId() == user.getId()) {
+                    workoutService.deleteWorkout(id);
+                    session.setAttribute("successMessage", "Workout deleted successfully.");
+                }
             }
         } else {
             String type = req.getParameter("workoutType");
-            int duration = Integer.parseInt(req.getParameter("durationMin"));
+            int duration = 0;
+            try { duration = Integer.parseInt(req.getParameter("durationMin")); } catch(NumberFormatException ignore) {}
             int calories = req.getParameter("calories") != null && !req.getParameter("calories").trim().isEmpty() ? Integer.parseInt(req.getParameter("calories")) : 0;
             int steps = req.getParameter("steps") != null && !req.getParameter("steps").trim().isEmpty() ? Integer.parseInt(req.getParameter("steps")) : 0;
             Date workoutDate = Date.valueOf(req.getParameter("workoutDate"));
