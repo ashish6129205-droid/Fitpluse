@@ -229,6 +229,30 @@ public class ChallengeDaoImpl implements ChallengeDao {
         return history;
     }
 
+    @Override
+    public List<ChallengeParticipant> findAllParticipants() {
+        List<ChallengeParticipant> participants = new ArrayList<>();
+        String sql = "SELECT * FROM challenge_participants";
+        try (Connection conn = DBUtil.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                ChallengeParticipant cp = new ChallengeParticipant();
+                cp.setId(rs.getInt("id"));
+                cp.setChallengeId(rs.getInt("challenge_id"));
+                cp.setUserId(rs.getInt("user_id"));
+                cp.setProgressValue(rs.getDouble("progress_value"));
+                cp.setCompleted(rs.getBoolean("completed"));
+                cp.setJoinedAt(rs.getTimestamp("joined_at"));
+                try { cp.setStatus(rs.getString("status")); } catch (SQLException ignore) {}
+                participants.add(cp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return participants;
+    }
+
     private Challenge mapRowToChallenge(ResultSet rs) throws SQLException {
         Challenge challenge = new Challenge();
         challenge.setId(rs.getInt("id"));

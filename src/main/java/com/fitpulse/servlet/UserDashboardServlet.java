@@ -7,6 +7,7 @@ import com.fitpulse.model.Challenge;
 import com.fitpulse.service.WorkoutService;
 import com.fitpulse.service.GoalService;
 import com.fitpulse.service.ChallengeService;
+import com.fitpulse.service.AnalyticsService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -22,12 +23,14 @@ public class UserDashboardServlet extends HttpServlet {
     private WorkoutService workoutService;
     private GoalService goalService;
     private ChallengeService challengeService;
+    private AnalyticsService analyticsService;
 
     @Override
     public void init() throws ServletException {
         this.workoutService = new WorkoutService();
         this.goalService = new GoalService();
         this.challengeService = new ChallengeService();
+        this.analyticsService = new AnalyticsService();
     }
 
     @Override
@@ -61,6 +64,9 @@ public class UserDashboardServlet extends HttpServlet {
         req.setAttribute("totalCalories", totalCalories);
         req.setAttribute("activeGoals", activeGoals);
         req.setAttribute("challengesJoined", challengesJoined); // Represents Active Challenges
+
+        req.setAttribute("currentStreak", analyticsService.calculateUserStreak(user.getId()));
+        req.setAttribute("weeklyVolumeMap", analyticsService.calculateWeeklyVolume(user.getId()));
 
         req.getRequestDispatcher("/user/dashboard.jsp").forward(req, resp);
     }
