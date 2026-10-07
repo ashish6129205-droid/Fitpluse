@@ -10,36 +10,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-expand-lg">
-    <div class="container">
-        <a class="navbar-brand" href="#">
-            <span class="brand-dot"></span> FitPulse
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="${pageContext.request.contextPath}/admin/users">Manage Users</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/moderation">Content Moderation</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/logout">Logout</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<jsp:include page="navbar.jsp" />
 
 <div class="container mt-4">
     <h2>Manage Users</h2>
-    <table class="table table-bordered mt-4">
+    <div class="table-wrapper"><table class="table table-striped table-responsive-stack">
         <thead>
             <tr>
                 <th>ID</th>
@@ -80,7 +55,7 @@
                 </tr>
             </c:forEach>
         </tbody>
-    </table>
+    </table></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import com.fitpulse.service.ActivityLogService;
 
 @WebServlet("/admin/users")
 public class ManageUsersServlet extends HttpServlet {
@@ -31,8 +32,10 @@ public class ManageUsersServlet extends HttpServlet {
 
         if ("activate".equals(action)) {
             userService.updateUserStatus(userId, true);
+            ActivityLogService.getInstance().logActivityAsync(userId, "USER_ACTIVATED", "Admin activated user ID " + userId);
         } else if ("deactivate".equals(action)) {
             userService.updateUserStatus(userId, false);
+            ActivityLogService.getInstance().logActivityAsync(userId, "USER_DEACTIVATED", "Admin deactivated user ID " + userId);
         }
 
         resp.sendRedirect(req.getContextPath() + "/admin/users");

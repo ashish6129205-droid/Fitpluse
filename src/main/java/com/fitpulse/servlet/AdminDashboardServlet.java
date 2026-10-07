@@ -2,6 +2,7 @@ package com.fitpulse.servlet;
 
 import com.fitpulse.service.UserService;
 import com.fitpulse.service.WorkoutService;
+import com.fitpulse.service.ActivityLogService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -25,6 +26,9 @@ public class AdminDashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("users", userService.getAllUsers());
         req.setAttribute("recentWorkouts", workoutService.getAllWorkouts());
+
+        // Fetch background logs
+        req.setAttribute("activityLogs", ActivityLogService.getInstance().getLatestLogs(10));
 
         req.getRequestDispatcher("/admin/dashboard.jsp").forward(req, resp);
     }

@@ -32,6 +32,7 @@ public class AppStartupListener implements ServletContextListener {
             stmt.execute("ALTER TABLE challenges ADD COLUMN IF NOT EXISTS participant_count INTEGER NOT NULL DEFAULT 0;");
             stmt.execute("ALTER TABLE challenge_participants ADD COLUMN IF NOT EXISTS status VARCHAR(20) DEFAULT 'ACTIVE';");
             stmt.execute("CREATE TABLE IF NOT EXISTS activity_log (id SERIAL PRIMARY KEY, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, action VARCHAR(100) NOT NULL, details VARCHAR(500), created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);");
+            stmt.execute("ALTER TABLE activity_log ADD COLUMN IF NOT EXISTS thread_name VARCHAR(100);");
 
             // We no longer rely on seed.sql. We use UserService.upsertUser for deterministic hashing.
             seedDemoUsers();
@@ -77,6 +78,7 @@ public class AppStartupListener implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
+        com.fitpulse.service.ActivityLogService.getInstance().shutdown();
         System.out.println("FitPulse Application Shutting Down.");
     }
 }

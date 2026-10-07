@@ -10,90 +10,111 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="#">FitPulse</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/logout">Logout</a>
-                </li>
-            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/users">Manage Users</a></li><li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/moderation">Content Moderation</a></li></ul>
-        </div>
-    </div>
-</nav>
+<jsp:include page="navbar.jsp" />
 
 <div class="container mt-4">
     <h2>Admin Dashboard</h2>
 
-    <ul class="nav nav-tabs mt-4" id="adminTabs" role="tablist">
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h4 class="mb-3">Live System Activity Logs (Multithreaded)</h4>
+            <div class="table-wrapper mb-5">
+                <table class="table table-striped table-responsive-stack">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Thread</th>
+                            <th>Action</th>
+                            <th>User Email</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="log" items="${activityLogs}">
+                            <tr>
+                                <td data-label="Timestamp" class="text-secondary" style="font-size: 0.85rem;">${log.createdAt}</td>
+                                <td data-label="Thread"><span class="badge bg-primary">${log.threadName}</span></td>
+                                <td data-label="Action"><span class="badge bg-success">${log.action}</span></td>
+                                <td data-label="User Email">${log.userEmail}</td>
+                                <td data-label="Details" class="text-secondary">${log.details}</td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="mb-3">System Overview</h4>
+    <ul class="nav nav-tabs mt-2" id="adminTabs" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab" aria-controls="users" aria-selected="true">Users</button>
+            <button class="nav-link active bg-transparent border-0" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab" aria-controls="users" aria-selected="true" style="color: var(--accent-emerald);">Users</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="workouts-tab" data-bs-toggle="tab" data-bs-target="#workouts" type="button" role="tab" aria-controls="workouts" aria-selected="false">All Workouts</button>
+            <button class="nav-link bg-transparent border-0" id="workouts-tab" data-bs-toggle="tab" data-bs-target="#workouts" type="button" role="tab" aria-controls="workouts" aria-selected="false" style="color: var(--text-secondary);">All Workouts</button>
         </li>
-    <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/users">Manage Users</a></li><li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/admin/moderation">Content Moderation</a></li></ul>
+    </ul>
+
     <div class="tab-content mt-3" id="adminTabsContent">
         <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users-tab">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th>Joined</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="u" items="${users}">
+            <div class="table-wrapper">
+                <table class="table table-striped table-responsive-stack">
+                    <thead>
                         <tr>
-                            <td>${u.id}</td>
-                            <td>${u.name}</td>
-                            <td>${u.email}</td>
-                            <td>${u.role}</td>
-                            <td>
-                                <span class="badge ${u.active ? 'bg-success' : 'bg-danger'}">${u.active ? 'Active' : 'Inactive'}</span>
-                            </td>
-                            <td>${u.createdAt}</td>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Joined</th>
                         </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="u" items="${users}">
+                            <tr>
+                                <td data-label="ID">${u.id}</td>
+                                <td data-label="Name">${u.name}</td>
+                                <td data-label="Email">${u.email}</td>
+                                <td data-label="Role">
+                                    <span class="badge ${u.role eq 'ADMIN' ? 'bg-success' : 'bg-primary'}">${u.role}</span>
+                                </td>
+                                <td data-label="Status">
+                                    <span class="badge ${u.active ? 'bg-success' : 'bg-danger'}">${u.active ? 'Active' : 'Inactive'}</span>
+                                </td>
+                                <td data-label="Joined">${u.createdAt}</td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="tab-pane fade" id="workouts" role="tabpanel" aria-labelledby="workouts-tab">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>User</th>
-                        <th>Date</th>
-                        <th>Type</th>
-                        <th>Duration</th>
-                        <th>Calories</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="w" items="${recentWorkouts}">
+            <div class="table-wrapper">
+                <table class="table table-striped table-responsive-stack">
+                    <thead>
                         <tr>
-                            <td>${w.id}</td>
-                            <td>${w.userName}</td>
-                            <td>${w.workoutDate}</td>
-                            <td>${w.workoutType}</td>
-                            <td>${w.durationMin}</td>
-                            <td>${w.calories}</td>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Duration</th>
+                            <th>Calories</th>
                         </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="w" items="${recentWorkouts}">
+                            <tr>
+                                <td data-label="ID">${w.id}</td>
+                                <td data-label="User">${w.userName}</td>
+                                <td data-label="Date">${w.workoutDate}</td>
+                                <td data-label="Type">${w.workoutType}</td>
+                                <td data-label="Duration">${w.durationMin} min</td>
+                                <td data-label="Calories">${w.calories} kcal</td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
