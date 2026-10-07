@@ -20,7 +20,13 @@ public class PasswordUtil {
             return false;
         }
         try {
-            return BCrypt.checkpw(plainPassword, hashedPassword);
+            // jBCrypt supports $2a$. If the hash is $2b$ or $2y$ (common in other languages),
+            // we replace the prefix with $2a$ so jBCrypt can verify it successfully.
+            String normalizedHash = hashedPassword;
+            if (normalizedHash.startsWith("$2b$") || normalizedHash.startsWith("$2y$")) {
+                normalizedHash = "$2a$" + normalizedHash.substring(4);
+            }
+            return BCrypt.checkpw(plainPassword, normalizedHash);
         } catch (Exception e) {
             return false;
         }

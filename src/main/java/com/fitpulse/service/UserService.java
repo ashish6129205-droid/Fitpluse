@@ -6,9 +6,12 @@ import com.fitpulse.model.User;
 import com.fitpulse.util.PasswordUtil;
 
 import java.util.List;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 public class UserService {
 
+    private static final Logger LOGGER = Logger.getLogger(UserService.class.getName());
     private final UserDao userDao;
 
     public UserService() {
@@ -24,13 +27,22 @@ public class UserService {
             return null;
         }
 
-        User user = userDao.findByEmail(email.trim());
+        String cleanEmail = email.trim().toLowerCase();
+        User user = userDao.findByEmail(cleanEmail);
 
-        if (user != null && user.isActive()) {
-            if (PasswordUtil.verifyPassword(password, user.getPasswordHash())) {
+        boolean found = (user != null);
+        boolean active = found && user.isActive();
+        boolean hashPassed = false;
+
+        if (active) {
+            hashPassed = PasswordUtil.verifyPassword(password, user.getPasswordHash());
+            if (hashPassed) {
+                LOGGER.info(String.format("Login attempt for email %s: found=%b, active=%b, hashCheckPassed=%b - SUCCESS", cleanEmail, found, active, hashPassed));
                 return user;
             }
         }
+
+        LOGGER.info(String.format("Login attempt for email %s: found=%b, active=%b, hashCheckPassed=%b - FAILED", cleanEmail, found, active, hashPassed));
         return null;
     }
 
@@ -38,14 +50,33 @@ public class UserService {
         if (email == null || email.trim().isEmpty()) {
             return null;
         }
-        return userDao.findByEmail(email.trim());
+        return userDao.findByEmail(email.trim().toLowerCase());
     }
 
     public void registerUser(User user, String plainPassword) {
+        user.setEmail(user.getEmail().trim().toLowerCase());
         user.setPasswordHash(PasswordUtil.hashPassword(plainPassword));
         user.setRole("USER");
         user.setActive(true);
         userDao.create(user);
+    }
+
+    public void upsertUser(User user, String plainPassword) {
+        String cleanEmail = user.getEmail().trim().toLowerCase();
+        User existingUser = userDao.findByEmail(cleanEmail);
+        String hashedPw = PasswordUtil.hashPassword(plainPassword);
+
+        if (existingUser != null) {
+            existingUser.setPasswordHash(hashedPw);
+            existingUser.setRole(user.getRole());
+            existingUser.setActive(true);
+            userDao.updateSystemFields(existingUser);
+        } else {
+            user.setEmail(cleanEmail);
+            user.setPasswordHash(hashedPw);
+            user.setActive(true);
+            userDao.create(user);
+        }
     }
 
     public User getUserById(int id) {
