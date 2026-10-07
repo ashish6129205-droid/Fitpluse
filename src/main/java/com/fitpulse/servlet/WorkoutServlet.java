@@ -42,14 +42,16 @@ public class WorkoutServlet extends HttpServlet {
             Workout workout = workoutService.getWorkoutById(id);
             if (workout != null && workout.getUserId() == user.getId()) {
                 workoutService.deleteWorkout(id);
+                session.setAttribute("successMessage", "Workout deleted successfully.");
             }
         } else {
             String type = req.getParameter("workoutType");
             int duration = Integer.parseInt(req.getParameter("durationMin"));
-            int calories = Integer.parseInt(req.getParameter("calories"));
-            int steps = req.getParameter("steps") != null && !req.getParameter("steps").isEmpty() ? Integer.parseInt(req.getParameter("steps")) : 0;
+            int calories = req.getParameter("calories") != null && !req.getParameter("calories").trim().isEmpty() ? Integer.parseInt(req.getParameter("calories")) : 0;
+            int steps = req.getParameter("steps") != null && !req.getParameter("steps").trim().isEmpty() ? Integer.parseInt(req.getParameter("steps")) : 0;
             Date workoutDate = Date.valueOf(req.getParameter("workoutDate"));
             String notes = req.getParameter("notes");
+            String intensity = req.getParameter("intensity");
 
             Workout workout = new Workout();
             workout.setUserId(user.getId());
@@ -60,8 +62,10 @@ public class WorkoutServlet extends HttpServlet {
             workout.setWorkoutDate(workoutDate);
             workout.setNotes(notes);
             workout.setStatus("APPROVED");
+            workout.setIntensity(intensity);
 
             workoutService.logWorkout(workout);
+            session.setAttribute("successMessage", "Workout logged successfully!");
         }
 
         resp.sendRedirect(req.getContextPath() + "/user/workouts");
