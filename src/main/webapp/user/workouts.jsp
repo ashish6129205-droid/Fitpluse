@@ -10,32 +10,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-expand-lg">
-    <div class="container">
-        <a class="navbar-brand" href="#">
-            <span class="brand-dot"></span> FitPulse
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/user/dashboard">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="${pageContext.request.contextPath}/user/workouts">My Workouts</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/logout">Logout</a>
-                </li>
-            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/progress">Progress</a></li><li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/goals">My Goals</a></li><li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/user/challenges">Challenges</a></li></ul>
-        </div>
-    </div>
-</nav>
+<jsp:include page="navbar.jsp" />
 
 <div class="container mt-4">
     <h2>Manage Workouts</h2>
+
+    <c:if test="${not empty sessionScope.successMessage}">
+        <div class="alert alert-success mt-3">${sessionScope.successMessage}</div>
+        <c:remove var="successMessage" scope="session" />
+    </c:if>
 
     <div class="card mt-4 mb-4">
         <div class="card-header">Log a New Workout</div>
@@ -43,11 +26,11 @@
             <form action="${pageContext.request.contextPath}/user/workouts" method="post">
                 <div class="row">
                     <div class="col-md-3 mb-3">
-                        <label>Date</label>
+                        <label class="form-label">Date</label>
                         <input type="date" class="form-control" name="workoutDate" required>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label>Type</label>
+                        <label class="form-label">Type</label>
                         <select class="form-select" name="workoutType" required>
                             <option value="Running">Running</option>
                             <option value="Cycling">Cycling</option>
@@ -58,23 +41,29 @@
                         </select>
                     </div>
                     <div class="col-md-2 mb-3">
-                        <label>Duration (min)</label>
+                        <label class="form-label">Intensity</label>
+                        <select class="form-select" name="intensity">
+                            <option value="Low">Low</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label class="form-label">Duration (min)</label>
                         <input type="number" class="form-control" name="durationMin" required>
                     </div>
                     <div class="col-md-2 mb-3">
-                        <label>Calories</label>
+                        <label class="form-label">Calories</label>
                         <input type="number" class="form-control" name="calories" required>
                     </div>
-                    <div class="col-md-2 mb-3">
-                        <label>Steps</label>
-                        <input type="number" class="form-control" name="steps">
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control" name="notes" rows="2"></textarea>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label>Notes</label>
-                    <textarea class="form-control" name="notes" rows="2"></textarea>
-                </div>
-                <button type="submit" class="btn btn-success">Log Workout</button>
+                <button type="submit" class="btn btn-primary">Log Workout</button>
             </form>
         </div>
     </div>
@@ -82,41 +71,47 @@
     <h4>Your Workouts</h4>
     <c:choose>
         <c:when test="${empty workouts}">
-            <p>No workouts logged yet.</p>
+            <div class="empty-state">
+                <div class="empty-icon">👟</div>
+                <h4>No workouts logged yet.</h4>
+                <p>Start moving and record your first session today!</p>
+            </div>
         </c:when>
         <c:otherwise>
-            <table class="table table-striped table-responsive-stack">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Type</th>
-                        <th>Duration</th>
-                        <th>Calories</th>
-                        <th>Steps</th>
-                        <th>Notes</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="w" items="${workouts}">
+            <div class="table-wrapper">
+                <table class="table table-striped table-responsive-stack">
+                    <thead>
                         <tr>
-                            <td data-label="Date">${w.workoutDate}</td>
-                            <td data-label="Type">${w.workoutType}</td>
-                            <td data-label="Duration">${w.durationMin} min</td>
-                            <td data-label="Calories">${w.calories} kcal</td>
-                            <td data-label="Steps">${w.steps}</td>
-                            <td data-label="Notes"><c:out value="${w.notes}"/></td>
-                            <td>
-                                <form action="${pageContext.request.contextPath}/user/workouts" method="post" style="display:inline;">
-                                    <input type="hidden" name="action" value="delete">
-                                    <input type="hidden" name="id" value="${w.id}">
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this workout?');">Delete</button>
-                                </form>
-                            </td>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Intensity</th>
+                            <th>Duration</th>
+                            <th>Calories</th>
+                            <th>Notes</th>
+                            <th>Action</th>
                         </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="w" items="${workouts}">
+                            <tr>
+                                <td data-label="Date">${w.workoutDate}</td>
+                                <td data-label="Type"><span class="badge bg-primary">${w.workoutType}</span></td>
+                                <td data-label="Intensity"><span class="badge ${w.intensity eq 'High' ? 'bg-danger' : (w.intensity eq 'Medium' ? 'bg-warning' : 'bg-success')}">${w.intensity}</span></td>
+                                <td data-label="Duration">${w.durationMin} min</td>
+                                <td data-label="Calories">${w.calories} kcal</td>
+                                <td data-label="Notes"><c:out value="${w.notes}"/></td>
+                                <td data-label="Action">
+                                    <form action="${pageContext.request.contextPath}/user/workouts" method="post" style="display:inline;">
+                                        <input type="hidden" name="action" value="delete">
+                                        <input type="hidden" name="id" value="${w.id}">
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this workout?');">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
         </c:otherwise>
     </c:choose>
 </div>

@@ -65,8 +65,8 @@ public class WorkoutDaoImpl implements WorkoutDao {
 
     @Override
     public void create(Workout workout) {
-        String sql = "INSERT INTO workouts (user_id, workout_type, duration_min, calories, steps, workout_date, notes, status) " +
-                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO workouts (user_id, workout_type, duration_min, calories, steps, workout_date, notes, status, intensity) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, workout.getUserId());
@@ -77,6 +77,7 @@ public class WorkoutDaoImpl implements WorkoutDao {
             ps.setDate(6, workout.getWorkoutDate());
             ps.setString(7, workout.getNotes());
             ps.setString(8, workout.getStatus() != null ? workout.getStatus() : "APPROVED");
+            ps.setString(9, workout.getIntensity());
 
             ps.executeUpdate();
 
@@ -92,7 +93,7 @@ public class WorkoutDaoImpl implements WorkoutDao {
 
     @Override
     public void update(Workout workout) {
-        String sql = "UPDATE workouts SET workout_type = ?, duration_min = ?, calories = ?, steps = ?, workout_date = ?, notes = ?, status = ? WHERE id = ?";
+        String sql = "UPDATE workouts SET workout_type = ?, duration_min = ?, calories = ?, steps = ?, workout_date = ?, notes = ?, status = ?, intensity = ? WHERE id = ?";
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, workout.getWorkoutType());
@@ -102,7 +103,8 @@ public class WorkoutDaoImpl implements WorkoutDao {
             ps.setDate(5, workout.getWorkoutDate());
             ps.setString(6, workout.getNotes());
             ps.setString(7, workout.getStatus());
-            ps.setInt(8, workout.getId());
+            ps.setString(8, workout.getIntensity());
+            ps.setInt(9, workout.getId());
 
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -134,6 +136,13 @@ public class WorkoutDaoImpl implements WorkoutDao {
         workout.setNotes(rs.getString("notes"));
         workout.setStatus(rs.getString("status"));
         workout.setCreatedAt(rs.getTimestamp("created_at"));
+
+        // Intensity might not exist if column wasn't created yet during tests or old runs, safe check
+        try {
+            workout.setIntensity(rs.getString("intensity"));
+        } catch (SQLException ignore) {
+            // Field might not be in result set if DB is out of sync, though AppStartupListener handles it.
+        }
         return workout;
     }
 }
