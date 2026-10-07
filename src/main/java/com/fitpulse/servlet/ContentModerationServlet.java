@@ -1,39 +1,47 @@
 package com.fitpulse.servlet;
 
-import com.fitpulse.model.Workout;
-import com.fitpulse.service.WorkoutService;
+import com.fitpulse.model.FitnessContent;
+import com.fitpulse.model.User;
+import com.fitpulse.service.ContentService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/admin/moderation")
 public class ContentModerationServlet extends HttpServlet {
-    private WorkoutService workoutService;
+    private ContentService contentService;
 
     @Override
     public void init() throws ServletException {
-        this.workoutService = new WorkoutService();
+        this.contentService = new ContentService();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("workouts", workoutService.getAllWorkouts());
+        req.setAttribute("pendingContent", contentService.getPendingContent());
         req.getRequestDispatcher("/admin/moderation.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int workoutId = Integer.parseInt(req.getParameter("workoutId"));
-        String status = req.getParameter("status"); // APPROVED or REJECTED
+        HttpSession session = req.getSession(false);
+        User admin = (User) session.getAttribute("loggedUser");
 
-        Workout workout = workoutService.getWorkoutById(workoutId);
-        if (workout != null && ("APPROVED".equals(status) || "REJECTED".equals(status))) {
-            workout.setStatus(status);
-            workoutService.updateWorkout(workout);
+        try {
+            int contentId = Integer.parseInt(req.getParameter("contentId"));
+            String status = req.getParameter("status"); // APPROVED or REJECTED
+
+            if ("APPROVED".equals(status) || "REJECTED".equals(status)) {
+                contentService.updateContentStatus(admin.getId(), contentId, status);
+                session.setAttribute("successMessage", "Content " + status.toLowerCase() + " successfully.");
+            }
+        } catch (NumberFormatException e) {
+            session.setAttribute("errorMessage", "Invalid request.");
         }
 
         resp.sendRedirect(req.getContextPath() + "/admin/moderation");
