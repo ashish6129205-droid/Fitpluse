@@ -1,0 +1,223 @@
+/* FitPulse Modern Slate Theme */
+:root {
+    --bg-slate: #0f172a;
+    --card-slate: #1e293b;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --accent-emerald: #10b981;
+    --accent-emerald-hover: #059669;
+    --accent-indigo: #6366f1;
+    --accent-indigo-hover: #4f46e5;
+    --danger: #ef4444;
+    --danger-hover: #dc2626;
+    --border-color: #334155;
+}
+
+body {
+    background-color: var(--bg-slate);
+    color: var(--text-primary);
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Typography & Links */
+a {
+    color: var(--accent-emerald);
+    text-decoration: none;
+}
+a:hover {
+    color: var(--accent-emerald-hover);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--card-slate) !important;
+    border-bottom: 1px solid var(--border-color);
+}
+.navbar-brand {
+    color: var(--accent-emerald) !important;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+.nav-link {
+    color: var(--text-secondary) !important;
+    border-radius: 9999px;
+    padding: 0.5rem 1rem !important;
+    margin: 0.2rem;
+    transition: all 0.3s ease;
+}
+.nav-link:hover, .nav-link.active {
+    background-color: var(--accent-indigo) !important;
+    color: #fff !important;
+}
+
+/* Cards & Containers */
+.container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+.card {
+    background-color: var(--card-slate);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+}
+.card-header {
+    background-color: transparent;
+    border-bottom: 1px solid var(--border-color);
+    font-weight: bold;
+    padding: 1rem 1.25rem;
+}
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Forms & Inputs */
+.form-control, .form-select {
+    background-color: var(--bg-slate);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: 0.5rem;
+}
+.form-control:focus, .form-select:focus {
+    background-color: var(--bg-slate);
+    border-color: var(--accent-emerald);
+    box-shadow: 0 0 0 0.25rem rgba(16, 185, 129, 0.25);
+    color: var(--text-primary);
+}
+.form-label {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--accent-indigo);
+    border-color: var(--accent-indigo);
+}
+.btn-primary:hover {
+    background-color: var(--accent-indigo-hover);
+    border-color: var(--accent-indigo-hover);
+}
+.btn-success {
+    background-color: var(--accent-emerald);
+    border-color: var(--accent-emerald);
+}
+.btn-success:hover {
+    background-color: var(--accent-emerald-hover);
+    border-color: var(--accent-emerald-hover);
+}
+.btn-danger {
+    background-color: var(--danger);
+    border-color: var(--danger);
+}
+.btn-danger:hover {
+    background-color: var(--danger-hover);
+    border-color: var(--danger-hover);
+}
+
+/* Tables */
+.table {
+    color: var(--text-primary);
+    margin-bottom: 0;
+}
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+    background-color: rgba(255, 255, 255, 0.02);
+    color: var(--text-primary);
+}
+.table-bordered {
+    border-color: var(--border-color);
+}
+.table th, .table td {
+    border-color: var(--border-color);
+    padding: 1rem;
+    vertical-align: middle;
+}
+.table thead th {
+    border-bottom: 2px solid var(--border-color);
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+/* Badges */
+.badge {
+    padding: 0.35em 0.65em;
+    border-radius: 9999px;
+    font-weight: 500;
+}
+.bg-success { background-color: var(--accent-emerald) !important; }
+.bg-primary { background-color: var(--accent-indigo) !important; }
+.bg-danger { background-color: var(--danger) !important; }
+.bg-warning { background-color: #f59e0b !important; color: #fff !important; }
+
+/* Stat Cards */
+.stat-card {
+    text-align: center;
+    padding: 1.5rem;
+}
+.stat-card h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent-emerald);
+    margin-bottom: 0.5rem;
+}
+.stat-card p {
+    color: var(--text-secondary);
+    margin: 0;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    background-color: rgba(255,255,255,0.02);
+    border: 1px dashed var(--border-color);
+    border-radius: 0.75rem;
+}
+.empty-state h4 { margin-bottom: 1rem; }
+.empty-state p { color: var(--text-secondary); margin-bottom: 1.5rem; }
+
+/* Mobile Responsive Tables (Card View) */
+@media (max-width: 767.98px) {
+    .table-responsive-stack tr {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--card-slate) !important;
+        border: 1px solid var(--border-color);
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+    }
+    .table-responsive-stack td, .table-responsive-stack th {
+        display: block;
+        padding: 0.5rem;
+        border: none !important;
+    }
+    .table-responsive-stack thead {
+        display: none;
+    }
+    .table-responsive-stack td[data-label]::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: var(--text-secondary);
+        display: inline-block;
+        width: 120px;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+    }
+}
