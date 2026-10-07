@@ -10,4 +10,5 @@ public interface UserDao {
     void create(User user);
     void update(User user);
     void updateStatus(int userId, boolean active);
+    void updateSystemFields(User user);
 }

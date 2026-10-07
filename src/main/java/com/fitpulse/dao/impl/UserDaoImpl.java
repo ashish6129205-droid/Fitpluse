@@ -107,6 +107,21 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public void updateSystemFields(User user) {
+        String sql = "UPDATE users SET password_hash = ?, role = ?, active = ? WHERE id = ?";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, user.getPasswordHash());
+            ps.setString(2, user.getRole());
+            ps.setBoolean(3, user.isActive());
+            ps.setInt(4, user.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void updateStatus(int userId, boolean active) {
         String sql = "UPDATE users SET active = ? WHERE id = ?";
         try (Connection conn = DBUtil.getConnection();
