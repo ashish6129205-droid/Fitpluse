@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import com.fitpulse.service.ActivityLogService;
 import java.sql.Date;
 
 @WebServlet("/user/workouts")
@@ -65,6 +66,7 @@ public class WorkoutServlet extends HttpServlet {
             workout.setIntensity(intensity);
 
             workoutService.logWorkout(workout);
+            ActivityLogService.getInstance().logActivityAsync(user.getId(), "LOG_WORKOUT", "Logged " + type + " for " + duration + " min");
             session.setAttribute("successMessage", "Workout logged successfully!");
         }
 

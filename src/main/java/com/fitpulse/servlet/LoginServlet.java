@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import com.fitpulse.service.ActivityLogService;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -36,6 +37,7 @@ public class LoginServlet extends HttpServlet {
         if (user != null) {
             HttpSession session = req.getSession();
             session.setAttribute("loggedUser", user);
+            ActivityLogService.getInstance().logActivityAsync(user.getId(), "LOGIN", "User logged in successfully");
 
             if ("ADMIN".equals(user.getRole())) {
                 resp.sendRedirect(req.getContextPath() + "/admin/dashboard");

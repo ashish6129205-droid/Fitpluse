@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import com.fitpulse.service.ActivityLogService;
 
 @WebServlet("/user/challenges")
 public class ChallengeServlet extends HttpServlet {
@@ -43,6 +44,7 @@ public class ChallengeServlet extends HttpServlet {
             try {
                 int challengeId = Integer.parseInt(req.getParameter("challengeId"));
                 challengeService.joinChallenge(user.getId(), challengeId);
+                ActivityLogService.getInstance().logActivityAsync(user.getId(), "JOIN_CHALLENGE", "Joined challenge ID " + challengeId);
                 session.setAttribute("successMessage", "Challenge joined successfully!");
             } catch (Exception e) {
                 e.printStackTrace();
