@@ -50,4 +50,8 @@ public class ChallengeService {
     public List<ChallengeParticipant> getJoinedChallengesHistory(int userId) {
         return challengeDao.getJoinedChallenges(userId);
     }
+
+    public List<ChallengeParticipant> getAllParticipants() {
+        return challengeDao.findAllParticipants();
+    }
 }

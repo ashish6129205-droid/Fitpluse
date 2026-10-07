@@ -14,4 +14,5 @@ public interface ChallengeDao {
     void joinChallenge(int userId, int challengeId);
     List<Integer> getJoinedChallengeIds(int userId);
     List<ChallengeParticipant> getJoinedChallenges(int userId);
+    List<ChallengeParticipant> findAllParticipants();
 }

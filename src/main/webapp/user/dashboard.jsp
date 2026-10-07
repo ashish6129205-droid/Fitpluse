@@ -19,9 +19,30 @@
             <h2>Welcome back, ${sessionScope.loggedUser.name}!</h2>
             <div class="welcome-subtitle">Let's crush your fitness goals today.</div>
         </div>
+        <div class="date-badge me-2" style="background: rgba(245,158,11,0.1); color: var(--accent-amber); border-color: rgba(245,158,11,0.2);">🔥 ${currentStreak} Day Streak</div>
         <div class="date-badge">
             <jsp:useBean id="now" class="java.util.Date"/>
             <fmt:formatDate value="${now}" pattern="MMM d, yyyy" />
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card p-3 mb-0" style="background: rgba(255,255,255,0.02);">
+                <h6 class="text-secondary mb-2">Weekly Volume (Last 7 Days)</h6>
+                <div class="d-flex gap-2 flex-wrap">
+                    <c:choose>
+                        <c:when test="${empty weeklyVolumeMap}">
+                            <span class="badge bg-secondary">No recent activity</span>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach var="entry" items="${weeklyVolumeMap}">
+                                <span class="badge" style="background: var(--accent-cyan); color: #fff;">${entry.key}: ${entry.value} min</span>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
         </div>
     </div>
 
