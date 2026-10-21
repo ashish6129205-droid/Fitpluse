@@ -22,7 +22,7 @@ public class ProgressEntryDaoImpl implements ProgressEntryDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
         return null;
     }
@@ -40,7 +40,7 @@ public class ProgressEntryDaoImpl implements ProgressEntryDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
         return entries;
     }
@@ -66,7 +66,7 @@ public class ProgressEntryDaoImpl implements ProgressEntryDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
     }
 
@@ -84,7 +84,7 @@ public class ProgressEntryDaoImpl implements ProgressEntryDao {
 
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
     }
 
@@ -96,7 +96,7 @@ public class ProgressEntryDaoImpl implements ProgressEntryDao {
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
     }
 

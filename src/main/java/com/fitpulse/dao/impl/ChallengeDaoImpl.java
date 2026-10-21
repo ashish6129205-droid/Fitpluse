@@ -24,7 +24,7 @@ public class ChallengeDaoImpl implements ChallengeDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
         return null;
     }
@@ -40,7 +40,7 @@ public class ChallengeDaoImpl implements ChallengeDao {
                 challenges.add(mapRowToChallenge(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
         return challenges;
     }
@@ -56,7 +56,7 @@ public class ChallengeDaoImpl implements ChallengeDao {
                 challenges.add(mapRowToChallenge(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
         return challenges;
     }
@@ -85,7 +85,7 @@ public class ChallengeDaoImpl implements ChallengeDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
     }
 
@@ -106,7 +106,7 @@ public class ChallengeDaoImpl implements ChallengeDao {
 
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
     }
 
@@ -118,7 +118,7 @@ public class ChallengeDaoImpl implements ChallengeDao {
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
     }
 
@@ -165,15 +165,15 @@ public class ChallengeDaoImpl implements ChallengeDao {
             }
             throw new DaoException("Failed to join challenge: " + e.getMessage(), e);
         } finally {
-            if (ps3 != null) try { ps3.close(); } catch (SQLException e) { e.printStackTrace(); }
-            if (ps2 != null) try { ps2.close(); } catch (SQLException e) { e.printStackTrace(); }
-            if (ps1 != null) try { ps1.close(); } catch (SQLException e) { e.printStackTrace(); }
+            if (ps3 != null) try { ps3.close(); } catch (SQLException e) { throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e); }
+            if (ps2 != null) try { ps2.close(); } catch (SQLException e) { throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e); }
+            if (ps1 != null) try { ps1.close(); } catch (SQLException e) { throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e); }
             if (conn != null) {
                 try {
                     conn.setAutoCommit(true);
                     conn.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
                 }
             }
         }
@@ -192,7 +192,7 @@ public class ChallengeDaoImpl implements ChallengeDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
         return ids;
     }
@@ -224,7 +224,7 @@ public class ChallengeDaoImpl implements ChallengeDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
         return history;
     }
@@ -248,7 +248,7 @@ public class ChallengeDaoImpl implements ChallengeDao {
                 participants.add(cp);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
         return participants;
     }

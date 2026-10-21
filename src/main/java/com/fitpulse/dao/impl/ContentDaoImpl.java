@@ -20,7 +20,7 @@ public class ContentDaoImpl implements ContentDao {
             ps.setString(3, content.getContent());
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
     }
 
@@ -54,7 +54,7 @@ public class ContentDaoImpl implements ContentDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
         return list;
     }
@@ -68,7 +68,7 @@ public class ContentDaoImpl implements ContentDao {
             ps.setInt(2, contentId);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
     }
 }
