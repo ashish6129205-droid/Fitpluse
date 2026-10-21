@@ -22,7 +22,7 @@ public class GoalDaoImpl implements GoalDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
         return null;
     }
@@ -40,7 +40,7 @@ public class GoalDaoImpl implements GoalDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
         return goals;
     }
@@ -67,7 +67,7 @@ public class GoalDaoImpl implements GoalDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
     }
 
@@ -86,7 +86,7 @@ public class GoalDaoImpl implements GoalDao {
 
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
     }
 
@@ -98,7 +98,7 @@ public class GoalDaoImpl implements GoalDao {
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
     }
 

@@ -68,6 +68,10 @@ public class UserDashboardServlet extends HttpServlet {
         req.setAttribute("currentStreak", analyticsService.calculateUserStreak(user.getId()));
         req.setAttribute("weeklyVolumeMap", analyticsService.calculateWeeklyVolume(user.getId()));
 
+        java.util.Map<String, Integer> calData = analyticsService.getWeeklyCalorieData(user.getId());
+        req.setAttribute("calLabels", String.join("','", calData.keySet()));
+        req.setAttribute("calValues", String.join(",", calData.values().stream().map(String::valueOf).toArray(String[]::new)));
+
         req.getRequestDispatcher("/user/dashboard.jsp").forward(req, resp);
     }
 }

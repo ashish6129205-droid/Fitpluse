@@ -22,7 +22,7 @@ public class WorkoutDaoImpl implements WorkoutDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
         return null;
     }
@@ -40,7 +40,7 @@ public class WorkoutDaoImpl implements WorkoutDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
         return workouts;
     }
@@ -58,7 +58,7 @@ public class WorkoutDaoImpl implements WorkoutDao {
                 workouts.add(w);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
         return workouts;
     }
@@ -87,7 +87,7 @@ public class WorkoutDaoImpl implements WorkoutDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
     }
 
@@ -108,7 +108,7 @@ public class WorkoutDaoImpl implements WorkoutDao {
 
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
     }
 
@@ -120,7 +120,7 @@ public class WorkoutDaoImpl implements WorkoutDao {
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
     }
 

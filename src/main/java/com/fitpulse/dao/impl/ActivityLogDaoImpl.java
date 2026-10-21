@@ -21,7 +21,7 @@ public class ActivityLogDaoImpl implements ActivityLogDao {
             ps.setString(4, log.getThreadName());
             ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
     }
 
@@ -51,7 +51,7 @@ public class ActivityLogDaoImpl implements ActivityLogDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
         }
         return logs;
     }

@@ -13,7 +13,10 @@
 <jsp:include page="navbar.jsp" />
 
 <div class="container mt-4">
-    <h2>Manage Workouts</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Manage Workouts</h2>
+        <a href="${pageContext.request.contextPath}/user/export-workouts" class="btn btn-outline-light">Export to CSV</a>
+    </div>
 
     <c:if test="${not empty sessionScope.successMessage}">
         <div class="alert alert-success mt-3">${sessionScope.successMessage}</div>

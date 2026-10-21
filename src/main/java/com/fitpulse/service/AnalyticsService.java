@@ -91,6 +91,26 @@ public class AnalyticsService {
         return streak;
     }
 
+    public Map<String, Integer> getWeeklyCalorieData(int userId) {
+        LocalDate oneWeekAgo = LocalDate.now().minusDays(6);
+        List<Workout> userWorkouts = workoutService.getWorkoutsForUser(userId);
+
+        Map<String, Integer> dailyCalories = new java.util.LinkedHashMap<>();
+        for (int i = 0; i < 7; i++) {
+            dailyCalories.put(oneWeekAgo.plusDays(i).toString(), 0);
+        }
+
+        userWorkouts.stream()
+                .filter(w -> !w.getWorkoutDate().toLocalDate().isBefore(oneWeekAgo))
+                .forEach(w -> {
+                    String dateKey = w.getWorkoutDate().toString();
+                    if (dailyCalories.containsKey(dateKey)) {
+                        dailyCalories.put(dateKey, dailyCalories.get(dateKey) + w.getCalories());
+                    }
+                });
+        return dailyCalories;
+    }
+
     public Map<String, Integer> calculateWeeklyVolume(int userId) {
         LocalDate oneWeekAgo = LocalDate.now().minusDays(7);
         List<Workout> userWorkouts = workoutService.getWorkoutsForUser(userId);
