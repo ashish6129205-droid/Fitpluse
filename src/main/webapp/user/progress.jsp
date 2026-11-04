@@ -22,6 +22,7 @@
                 <div class="card-header">Log New Measurement</div>
                 <div class="card-body">
                     <form action="${pageContext.request.contextPath}/user/progress" method="post">
+    <input type="hidden" name="_csrf" value="${csrfToken}" />
                         <div class="mb-3">
                             <label>Date</label>
                             <input type="date" class="form-control" name="entryDate" required>
@@ -77,6 +78,7 @@
                                     <td>${p.armsCm != null ? p.armsCm : '-'}</td>
                                     <td>
                                         <form action="${pageContext.request.contextPath}/user/progress" method="post" style="display:inline;">
+    <input type="hidden" name="_csrf" value="${csrfToken}" />
                                             <input type="hidden" name="action" value="delete">
                                             <input type="hidden" name="id" value="${p.id}">
                                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this entry?');">Delete</button>

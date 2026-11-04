@@ -37,18 +37,15 @@ public class WorkoutExportServlet extends HttpServlet {
         List<Workout> workouts = workoutService.getWorkoutsForUser(user.getId());
 
         try (PrintWriter writer = resp.getWriter()) {
-            writer.println("Date,Type,Intensity,Duration(min),Calories,Steps,Notes");
+            writer.println("Date,Workout Type,Duration (mins),Calories Burned,Intensity");
             for (Workout w : workouts) {
-                String notes = w.getNotes() != null ? w.getNotes().replace(",", ";").replace("\n", " ") : "";
                 String intensity = w.getIntensity() != null ? w.getIntensity() : "";
-                writer.printf("%s,%s,%s,%d,%d,%d,%s%n",
+                writer.printf("%s,%s,%d,%d,%s%n",
                         w.getWorkoutDate(),
                         w.getWorkoutType(),
-                        intensity,
                         w.getDurationMin(),
                         w.getCalories(),
-                        w.getSteps(),
-                        notes
+                        intensity
                 );
             }
         }

@@ -5,12 +5,14 @@ public class UserRank {
     private String userName;
     private int totalCalories;
     private int completedChallenges;
+    private int workoutCount;
 
     public UserRank(int userId, String userName) {
         this.userId = userId;
         this.userName = userName;
         this.totalCalories = 0;
         this.completedChallenges = 0;
+        this.workoutCount = 0;
     }
 
     public int getUserId() { return userId; }
@@ -26,4 +28,7 @@ public class UserRank {
     public int getCompletedChallenges() { return completedChallenges; }
     public void setCompletedChallenges(int completedChallenges) { this.completedChallenges = completedChallenges; }
     public void incrementCompletedChallenges() { this.completedChallenges++; }
+
+    public int getWorkoutCount() { return workoutCount; }
+    public void setWorkoutCount(int workoutCount) { this.workoutCount = workoutCount; }
 }

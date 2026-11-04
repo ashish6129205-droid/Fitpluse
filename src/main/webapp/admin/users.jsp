@@ -38,6 +38,7 @@
                     <td>
                         <c:if test="${u.role ne 'ADMIN'}">
                             <form action="${pageContext.request.contextPath}/admin/users" method="post" style="display:inline;">
+    <input type="hidden" name="_csrf" value="${csrfToken}" />
                                 <input type="hidden" name="userId" value="${u.id}">
                                 <c:choose>
                                     <c:when test="${u.active}">

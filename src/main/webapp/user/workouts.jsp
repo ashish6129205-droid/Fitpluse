@@ -27,6 +27,7 @@
         <div class="card-header">Log a New Workout</div>
         <div class="card-body">
             <form action="${pageContext.request.contextPath}/user/workouts" method="post">
+    <input type="hidden" name="_csrf" value="${csrfToken}" />
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label class="form-label">Date</label>
@@ -105,6 +106,7 @@
                                 <td data-label="Notes"><c:out value="${w.notes}"/></td>
                                 <td data-label="Action">
                                     <form action="${pageContext.request.contextPath}/user/workouts" method="post" style="display:inline;">
+    <input type="hidden" name="_csrf" value="${csrfToken}" />
                                         <input type="hidden" name="action" value="delete">
                                         <input type="hidden" name="id" value="${w.id}">
                                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this workout?');">Delete</button>

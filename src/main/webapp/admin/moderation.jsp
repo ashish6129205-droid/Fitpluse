@@ -69,11 +69,13 @@
                                         <td data-label="Action">
                                             <div class="d-flex gap-2">
                                                 <form action="${pageContext.request.contextPath}/admin/moderation" method="post" class="m-0">
+    <input type="hidden" name="_csrf" value="${csrfToken}" />
                                                     <input type="hidden" name="contentId" value="${c.id}">
                                                     <input type="hidden" name="status" value="APPROVED">
                                                     <button type="submit" class="btn btn-sm btn-success" style="background-color: var(--accent-emerald); border-color: var(--accent-emerald);">Approve</button>
                                                 </form>
                                                 <form action="${pageContext.request.contextPath}/admin/moderation" method="post" class="m-0">
+    <input type="hidden" name="_csrf" value="${csrfToken}" />
                                                     <input type="hidden" name="contentId" value="${c.id}">
                                                     <input type="hidden" name="status" value="REJECTED">
                                                     <button type="submit" class="btn btn-sm btn-danger" style="background-color: var(--danger); border-color: var(--danger);">Reject</button>

@@ -94,7 +94,10 @@
         </div>
     </div>
 
-            <h4 class="mb-4">Recent Activity</h4>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4>Recent Activity</h4>
+                <a href="${pageContext.request.contextPath}/user/export-workouts" class="btn btn-outline-light btn-sm">Export to CSV</a>
+            </div>
             <c:choose>
                 <c:when test="${empty recentWorkouts}">
                     <div class="empty-state">
@@ -138,20 +141,41 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const ctx = document.getElementById("weeklyCalorieChart").getContext("2d");
+    const labelsStr = "${calLabels}";
+    const labels = labelsStr ? labelsStr.split("','") : [];
+    const valuesStr = "${calValues}";
+    const values = valuesStr ? valuesStr.split(",") : [];
+
     new Chart(ctx, {
         type: "bar",
         data: {
-            labels: ["${calLabels}"],
+            labels: labels,
             datasets: [{
-                label: "Calories",
-                data: [${calValues}],
+                label: "Calories Burned",
+                data: values,
                 backgroundColor: "rgba(16, 185, 129, 0.8)",
+                borderColor: "rgba(16, 185, 129, 1)",
+                borderWidth: 1,
                 borderRadius: 4
             }]
         },
         options: {
-            scales: { y: { beginAtZero: true } },
-            plugins: { legend: { display: false } }
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: "rgba(255, 255, 255, 0.1)" },
+                    ticks: { color: "#9ca3af" }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { color: "#9ca3af" }
+                }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: { backgroundColor: 'rgba(0,0,0,0.8)' }
+            }
         }
     });
 </script>

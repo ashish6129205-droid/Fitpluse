@@ -59,6 +59,7 @@
                                     </c:when>
                                     <c:otherwise>
                                         <form action="${pageContext.request.contextPath}/user/challenges" method="post" class="mt-auto d-grid">
+    <input type="hidden" name="_csrf" value="${csrfToken}" />
                                             <input type="hidden" name="action" value="join">
                                             <input type="hidden" name="challengeId" value="${c.id}">
                                             <button type="submit" class="btn btn-primary">Join Challenge</button>

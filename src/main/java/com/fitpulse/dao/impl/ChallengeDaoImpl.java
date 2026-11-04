@@ -124,58 +124,42 @@ public class ChallengeDaoImpl implements ChallengeDao {
 
     @Override
     public void joinChallenge(int userId, int challengeId) {
-        Connection conn = null;
-        PreparedStatement ps1 = null;
-        PreparedStatement ps2 = null;
-        PreparedStatement ps3 = null;
+        String sql1 = "INSERT INTO challenge_participants (challenge_id, user_id, joined_at, status) VALUES (?, ?, NOW(), 'ACTIVE') ON CONFLICT (challenge_id, user_id) DO NOTHING";
+        String sql2 = "UPDATE challenges SET participant_count = participant_count + 1 WHERE id = ?";
+        String sql3 = "INSERT INTO activity_log (user_id, action, details) VALUES (?, 'JOIN_CHALLENGE', 'Joined challenge ID ' || ?)";
 
-        try {
-            conn = DBUtil.getConnection();
+        try (Connection conn = DBUtil.getConnection()) {
             conn.setAutoCommit(false);
+            try (PreparedStatement ps1 = conn.prepareStatement(sql1);
+                 PreparedStatement ps2 = conn.prepareStatement(sql2);
+                 PreparedStatement ps3 = conn.prepareStatement(sql3)) {
 
-            // Query 1: Insert participant
-            String sql1 = "INSERT INTO challenge_participants (challenge_id, user_id, status) VALUES (?, ?, 'ACTIVE')";
-            ps1 = conn.prepareStatement(sql1);
-            ps1.setInt(1, challengeId);
-            ps1.setInt(2, userId);
-            ps1.executeUpdate();
+                // Query 1: Insert participant
+                ps1.setInt(1, challengeId);
+                ps1.setInt(2, userId);
+                int rowsAffected = ps1.executeUpdate();
 
-            // Query 2: Update participant count
-            String sql2 = "UPDATE challenges SET participant_count = participant_count + 1 WHERE id = ?";
-            ps2 = conn.prepareStatement(sql2);
-            ps2.setInt(1, challengeId);
-            ps2.executeUpdate();
+                // If a row was actually inserted, update participant count and log activity
+                if (rowsAffected > 0) {
+                    // Query 2: Update participant count
+                    ps2.setInt(1, challengeId);
+                    ps2.executeUpdate();
 
-            // Query 3: Activity Log
-            String sql3 = "INSERT INTO activity_log (user_id, action, details) VALUES (?, 'JOIN_CHALLENGE', 'Joined challenge ID ' || ?)";
-            ps3 = conn.prepareStatement(sql3);
-            ps3.setInt(1, userId);
-            ps3.setInt(2, challengeId);
-            ps3.executeUpdate();
+                    // Query 3: Activity Log
+                    ps3.setInt(1, userId);
+                    ps3.setInt(2, challengeId);
+                    ps3.executeUpdate();
+                }
 
-            conn.commit();
-
+                conn.commit();
+            } catch (SQLException e) {
+                conn.rollback();
+                throw new DaoException("Failed to join challenge: " + e.getMessage(), e);
+            } finally {
+                conn.setAutoCommit(true);
+            }
         } catch (SQLException e) {
-            if (conn != null) {
-                try {
-                    conn.rollback();
-                } catch (SQLException ex) {
-                    throw new DaoException("Error rolling back transaction: " + ex.getMessage(), ex);
-                }
-            }
-            throw new DaoException("Failed to join challenge: " + e.getMessage(), e);
-        } finally {
-            if (ps3 != null) try { ps3.close(); } catch (SQLException e) { throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e); }
-            if (ps2 != null) try { ps2.close(); } catch (SQLException e) { throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e); }
-            if (ps1 != null) try { ps1.close(); } catch (SQLException e) { throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e); }
-            if (conn != null) {
-                try {
-                    conn.setAutoCommit(true);
-                    conn.close();
-                } catch (SQLException e) {
-                    throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
-                }
-            }
+            throw new DaoException("Database operation failed: " + e.getMessage(), e);
         }
     }
 
