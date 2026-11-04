@@ -1,16 +1,20 @@
 package com.fitpulse.util;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Provides database connections using environment variables.
+ * Provides database connections using HikariCP and environment variables.
  * Never hardcode credentials here.
  */
 public class DBUtil {
+
+    private static HikariDataSource dataSource;
 
     static {
         try {
@@ -18,9 +22,11 @@ public class DBUtil {
         } catch (ClassNotFoundException e) {
             throw new ExceptionInInitializerError("PostgreSQL JDBC driver not found: " + e.getMessage());
         }
+
+        initDataSource();
     }
 
-    public static Connection getConnection() throws SQLException {
+    private static void initDataSource() {
         String dbUrlEnv = System.getenv("DATABASE_URL");
         if (dbUrlEnv == null || dbUrlEnv.isBlank()) {
             dbUrlEnv = System.getenv("DB_URL");
@@ -45,7 +51,7 @@ public class DBUtil {
                     String queryPart = dbUri.getQuery() != null ? "?" + dbUri.getQuery() : "";
                     url = "jdbc:postgresql://" + dbUri.getHost() + portPart + dbUri.getPath() + queryPart;
                 } catch (URISyntaxException e) {
-                    throw new SQLException("Invalid database URI syntax: " + e.getMessage());
+                    throw new RuntimeException("Invalid database URI syntax: " + e.getMessage());
                 }
             } else {
                 url = dbUrlEnv;
@@ -61,6 +67,26 @@ public class DBUtil {
         if (password == null) {
             password = "";
         }
-        return DriverManager.getConnection(url, user, password);
+
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(url);
+        config.setUsername(user);
+        config.setPassword(password);
+        config.setMaximumPoolSize(10);
+        config.setMinimumIdle(2);
+        config.setIdleTimeout(30000);
+        config.setConnectionTimeout(20000);
+
+        dataSource = new HikariDataSource(config);
+    }
+
+    public static Connection getConnection() throws SQLException {
+        return dataSource.getConnection();
+    }
+
+    public static void closeDataSource() {
+        if (dataSource != null && !dataSource.isClosed()) {
+            dataSource.close();
+        }
     }
 }

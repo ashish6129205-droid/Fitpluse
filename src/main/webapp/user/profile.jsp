@@ -24,6 +24,7 @@
         <div class="card-header">Update Profile Details</div>
         <div class="card-body">
             <form action="${pageContext.request.contextPath}/user/profile" method="post">
+    <input type="hidden" name="_csrf" value="${csrfToken}" />
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Name</label>

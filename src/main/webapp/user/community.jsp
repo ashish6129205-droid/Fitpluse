@@ -76,6 +76,7 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="${pageContext.request.contextPath}/user/community" method="post">
+    <input type="hidden" name="_csrf" value="${csrfToken}" />
                 <div class="modal-body">
                     <div class="alert alert-info" style="background: rgba(6, 182, 212, 0.1); border: 1px solid var(--accent-cyan); color: var(--accent-cyan);">
                         Submitted tips will appear after Admin review.

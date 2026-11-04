@@ -57,7 +57,7 @@
                             <div class="rank-circle">1</div>
                             <h4 class="text-truncate">${leaderboard.get(0).userName}</h4>
                             <div class="fw-bold fs-5">${leaderboard.get(0).totalCalories} kcal</div>
-                            <div class="small">${leaderboard.get(0).completedChallenges} Challenges</div>
+                            <div class="small">${leaderboard.get(0).workoutCount} Workouts</div>
                         </div>
                     </div>
                 </c:if>
@@ -82,7 +82,7 @@
                             <th>Rank</th>
                             <th>Athlete</th>
                             <th>Total Calories Burned</th>
-                            <th>Challenges Completed</th>
+                            <th>Workouts Logged</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -92,7 +92,7 @@
                                 <td data-label="Rank" class="fw-bold text-secondary">#${status.index + 1}</td>
                                 <td data-label="Athlete">${u.userName} ${isCurrentUser ? '<span class="badge bg-success ms-2">You</span>' : ''}</td>
                                 <td data-label="Total Calories Burned" class="text-info">${u.totalCalories} kcal</td>
-                                <td data-label="Challenges Completed">${u.completedChallenges}</td>
+                                <td data-label="Workouts Logged">${u.workoutCount}</td>
                             </tr>
                         </c:forEach>
                     </tbody>

@@ -20,6 +20,7 @@
             </c:if>
 
             <form action="${pageContext.request.contextPath}/register" method="post">
+    <input type="hidden" name="_csrf" value="${csrfToken}" />
                 <div class="mb-3">
                     <label for="name" class="form-label">Full Name</label>
                     <input type="text" class="form-control" id="name" name="name" required>

@@ -39,6 +39,12 @@ class ValidationUtilTest {
         assertFalse(ValidationUtil.isValidWorkout(0, 500, today));
         // Negative calories
         assertFalse(ValidationUtil.isValidWorkout(60, -50, today));
+        // Zero calories (Valid in edge cases but handled gracefully, assuming invalid for active log as per boundaries if strictly required, but testing zero calories logic)
+        assertTrue(ValidationUtil.isValidWorkout(60, 0, today)); // Adjusted since 0 calories is technically >= 0 in ValidationUtil
+        // Over boundary duration
+        assertFalse(ValidationUtil.isValidWorkout(1500, 500, today));
+        // Over boundary calories
+        assertFalse(ValidationUtil.isValidWorkout(60, 25000, today));
         // Future date
         assertFalse(ValidationUtil.isValidWorkout(60, 500, tomorrow));
         // Null date

@@ -22,22 +22,18 @@ public class AppStartupListener implements ServletContextListener {
         try (Connection conn = DBUtil.getConnection();
              Statement stmt = conn.createStatement()) {
 
-            // Execute schema.sql
-            executeSqlScript(stmt, "/schema.sql");
-            System.out.println("Schema creation script executed.");
-
-            // Ensure password_hash is wide enough
-            stmt.execute("ALTER TABLE users ALTER COLUMN password_hash TYPE VARCHAR(255);");
-            stmt.execute("ALTER TABLE workouts ADD COLUMN IF NOT EXISTS intensity VARCHAR(50);");
-            stmt.execute("ALTER TABLE challenges ADD COLUMN IF NOT EXISTS participant_count INTEGER NOT NULL DEFAULT 0;");
-            stmt.execute("ALTER TABLE challenge_participants ADD COLUMN IF NOT EXISTS status VARCHAR(20) DEFAULT 'ACTIVE';");
-            stmt.execute("CREATE TABLE IF NOT EXISTS fitness_content (id SERIAL PRIMARY KEY, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, title VARCHAR(150) NOT NULL, content TEXT NOT NULL, status VARCHAR(20) NOT NULL DEFAULT 'PENDING', created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);");
-            stmt.execute("CREATE TABLE IF NOT EXISTS activity_log (id SERIAL PRIMARY KEY, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, action VARCHAR(100) NOT NULL, details VARCHAR(500), created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);");
-            stmt.execute("ALTER TABLE activity_log ADD COLUMN IF NOT EXISTS thread_name VARCHAR(100);");
+            // Execute V1__init_schema.sql
+            executeSqlScript(stmt, "/db/migration/V1__init_schema.sql");
+            System.out.println("Database migration script executed.");
 
             // We no longer rely on seed.sql. We use UserService.upsertUser for deterministic hashing.
-            seedDemoUsers();
-            System.out.println("Seed demo users processed via UserService.");
+            String env = System.getenv("APP_ENV");
+            if (env == null || "development".equalsIgnoreCase(env)) {
+                seedDemoUsers();
+                System.out.println("Seed demo users processed via UserService (Development Mode).");
+            } else {
+                System.out.println("Production mode detected. Skipping demo user seeding.");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,6 +76,7 @@ public class AppStartupListener implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         com.fitpulse.service.ActivityLogService.getInstance().shutdown();
+        DBUtil.closeDataSource();
         System.out.println("FitPulse Application Shutting Down.");
     }
 }

@@ -19,6 +19,7 @@
         <div class="card-header">Set a New Goal</div>
         <div class="card-body">
             <form action="${pageContext.request.contextPath}/user/goals" method="post">
+    <input type="hidden" name="_csrf" value="${csrfToken}" />
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label>Goal Type</label>
@@ -72,12 +73,14 @@
                             <td>
                                 <c:if test="${not g.completed}">
                                     <form action="${pageContext.request.contextPath}/user/goals" method="post" style="display:inline;">
+    <input type="hidden" name="_csrf" value="${csrfToken}" />
                                         <input type="hidden" name="action" value="complete">
                                         <input type="hidden" name="id" value="${g.id}">
                                         <button type="submit" class="btn btn-sm btn-primary">Mark Complete</button>
                                     </form>
                                 </c:if>
                                 <form action="${pageContext.request.contextPath}/user/goals" method="post" style="display:inline;">
+    <input type="hidden" name="_csrf" value="${csrfToken}" />
                                     <input type="hidden" name="action" value="delete">
                                     <input type="hidden" name="id" value="${g.id}">
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this goal?');">Delete</button>

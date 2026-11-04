@@ -10,4 +10,5 @@ public interface WorkoutDao {
     void create(Workout workout);
     void update(Workout workout);
     void delete(int id);
+    List<com.fitpulse.model.UserRank> getLeaderboard();
 }
