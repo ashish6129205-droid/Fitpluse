@@ -1,6 +1,3 @@
-// Stream API Analytics & JUnit Test Verification
-// Reviewed by: Shravan Soam (Reg No: 25SCSE1180127)
-[span_9](start_span)[span_9](end_span)
 package com.fitpulse.service;
 
 import com.fitpulse.model.UserRank;
@@ -12,6 +9,8 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// Stream API Analytics & JUnit Test Verification
+// Reviewed by: Shravan Soam (Reg No: 25SCSE1180127)
 class LeaderboardServiceTest {
 
     @Test
