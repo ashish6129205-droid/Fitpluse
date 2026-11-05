@@ -1,3 +1,6 @@
+<!-- UI Theme: Dark Glassmorphism & Dynamic Chart.js Analytics -->
+<!-- Designed by: Aayush Kumar Jha (Reg No: 25SCSE1180796) -->
+```[span_15](start_span)[span_15](end_span)
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
