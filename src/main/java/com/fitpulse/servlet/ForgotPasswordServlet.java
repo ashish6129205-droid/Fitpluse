@@ -2,6 +2,7 @@ package com.fitpulse.servlet;
 
 import com.fitpulse.model.User;
 import com.fitpulse.service.UserService;
+import com.fitpulse.service.PasswordResetService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -39,15 +40,23 @@ public class ForgotPasswordServlet extends HttpServlet {
         try {
             User user = userService.findByEmail(email.trim());
             if (user == null) {
-                req.setAttribute("errorMessage", "Email not found in our records.");
+                req.setAttribute("errorMessage", "Email not found.");
                 req.getRequestDispatcher("/forgot-password.jsp").forward(req, resp);
                 return;
             }
 
-            // For MVP, we'll store the email in session for the reset-password step
-            HttpSession session = req.getSession(true);
-            session.setAttribute("resetEmail", email.trim());
+            // Generate a secure reset token
+            String token = PasswordResetService.generateToken(user.getEmail());
+            System.out.println("====== MOCK EMAIL ======");
+            System.out.println("To: " + user.getEmail());
+            System.out.println("Your password reset token is: " + token);
+            System.out.println("========================");
 
+            // For MVP, we pass the token in session just to prepopulate the next form,
+            // but the backend requires the actual token to complete the reset.
+            // Alternatively, redirect to reset-password with a success message asking them to enter the token.
+            HttpSession session = req.getSession(true);
+            session.setAttribute("successMessage", "Password reset token generated! (Check server logs). Please enter it below.");
             resp.sendRedirect(req.getContextPath() + "/reset-password");
         } catch (Exception e) {
             req.setAttribute("errorMessage", "An error occurred while processing your request.");

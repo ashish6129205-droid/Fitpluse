@@ -88,16 +88,23 @@
 
     <!-- Dual Interactive Chart.js Section -->
     <div class="row mb-5">
-        <div class="col-lg-8 mb-4 mb-lg-0">
-            <div class="card p-4 h-100">
-                <h5 class="mb-3">Calorie Burn Trend</h5>
-                <canvas id="weeklyCalorieChart"></canvas>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card p-4 h-100">
-                <h5 class="mb-3 text-center">Workout Distribution</h5>
-                <canvas id="workoutDistributionChart"></canvas>
+        <div class="col-12">
+            <div class="card p-4">
+                <h4 class="mb-4">Weekly Analytics</h4>
+                <div class="row">
+                    <div class="col-lg-8 mb-4 mb-lg-0">
+                        <h5 class="mb-3">Calorie Burn Trend</h5>
+                        <div style="position: relative; height: 300px;">
+                            <canvas id="weeklyCalorieChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <h5 class="mb-3 text-center">Workout Distribution</h5>
+                        <div style="position: relative; height: 300px;">
+                            <canvas id="workoutDistributionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

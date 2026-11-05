@@ -64,9 +64,23 @@
         </div>
     </c:if>
 
+    <c:if test="${not empty sessionScope.successMessage}">
+        <div class="alert alert-success" style="background:rgba(16,185,129,0.1); border-color:rgba(16,185,129,0.2); color:#10b981;">
+            ${sessionScope.successMessage}
+        </div>
+        <c:remove var="successMessage" scope="session" />
+    </c:if>
+
     <form action="${pageContext.request.contextPath}/reset-password" method="post">
         <input type="hidden" name="_csrf" value="${csrfToken}" />
-        <input type="hidden" name="email" value="${email}" />
+
+        <div class="mb-3">
+            <label for="token" class="form-label">Reset Token</label>
+            <div class="input-group">
+                <span class="input-group-text">🔑</span>
+                <input type="text" class="form-control" id="token" name="token" required>
+            </div>
+        </div>
 
         <div class="mb-3">
             <label for="password" class="form-label">New Password</label>
