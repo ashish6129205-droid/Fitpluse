@@ -134,19 +134,6 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    @Override
-    public void updatePassword(String email, String newPasswordHash) {
-        String sql = "UPDATE users SET password_hash = ? WHERE email = ?";
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, newPasswordHash);
-            ps.setString(2, email);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new com.fitpulse.exception.DaoException("Database operation failed: " + e.getMessage(), e);
-        }
-    }
-
     private User mapRowToUser(ResultSet rs) throws SQLException {
         User user = new User();
         user.setId(rs.getInt("id"));
