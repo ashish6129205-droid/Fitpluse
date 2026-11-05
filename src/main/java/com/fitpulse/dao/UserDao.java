@@ -11,5 +11,4 @@ public interface UserDao {
     void update(User user);
     void updateStatus(int userId, boolean active);
     void updateSystemFields(User user);
-    void updatePassword(String email, String newPasswordHash);
 }
