@@ -81,10 +81,6 @@
     </div>
 
     <!-- Quick Demo Credentials Helper -->
-    <div class="demo-pills">
-        <div class="demo-pill" onclick="fillDemo('user@fittrack.demo', 'User@123')">👤 Fill Demo User</div>
-        <div class="demo-pill" onclick="fillDemo('admin@fittrack.demo', 'Admin@123')">🔑 Fill Demo Admin</div>
-    </div>
 
     <c:if test="${not empty sessionScope.successMessage}">
         <div class="alert alert-success" style="background:rgba(16,185,129,0.1); border-color:rgba(16,185,129,0.2); color:#10b981;">
@@ -113,11 +109,13 @@
         <div class="mb-4">
             <div class="d-flex justify-content-between align-items-center">
                 <label for="password" class="form-label mb-0">Password</label>
-                <a href="${pageContext.request.contextPath}/forgot-password" class="small text-decoration-none">Forgot Password?</a>
             </div>
             <div class="input-group mt-1">
                 <span class="input-group-text">🔒</span>
                 <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="mt-2 text-end">
+                <a href="${pageContext.request.contextPath}/forgot-password.jsp" class="small text-decoration-none">Forgot Password?</a>
             </div>
         </div>
 
@@ -130,12 +128,6 @@
     </div>
 </div>
 
-<script>
-    function fillDemo(email, password) {
-        document.getElementById('email').value = email;
-        document.getElementById('password').value = password;
-    }
-</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -55,6 +55,35 @@ public class AppStartupListener implements ServletContextListener {
         admin.setEmail("admin@fittrack.demo");
         admin.setRole("ADMIN");
         userService.upsertUser(admin, "Admin@123");
+
+        // Seed 4-5 activity log audit rows for the admin user
+        seedAdminActivityLogs();
+    }
+
+    private void seedAdminActivityLogs() {
+        try (Connection conn = DBUtil.getConnection();
+             Statement stmt = conn.createStatement()) {
+
+            // Get admin ID
+            java.sql.ResultSet rs = stmt.executeQuery("SELECT id FROM users WHERE email = 'admin@fittrack.demo'");
+            if (rs.next()) {
+                int adminId = rs.getInt("id");
+
+                // Check if logs already exist
+                java.sql.ResultSet rsLogs = stmt.executeQuery("SELECT COUNT(*) FROM activity_log WHERE user_id = " + adminId);
+                rsLogs.next();
+                if (rsLogs.getInt(1) == 0) {
+                    stmt.addBatch("INSERT INTO activity_log (user_id, action, details, thread_name) VALUES (" + adminId + ", 'USER_LOGIN', 'Admin logged in from 192.168.1.1', 'http-nio-8080-exec-1')");
+                    stmt.addBatch("INSERT INTO activity_log (user_id, action, details, thread_name) VALUES (" + adminId + ", 'SYSTEM_CONFIG_UPDATED', 'Updated application theme settings', 'http-nio-8080-exec-2')");
+                    stmt.addBatch("INSERT INTO activity_log (user_id, action, details, thread_name) VALUES (" + adminId + ", 'USER_BANNED', 'Banned spam user ID 42', 'http-nio-8080-exec-3')");
+                    stmt.addBatch("INSERT INTO activity_log (user_id, action, details, thread_name) VALUES (" + adminId + ", 'CHALLENGE_CREATED', 'Created new global challenge: 30-Day Cardio Shred', 'http-nio-8080-exec-5')");
+                    stmt.addBatch("INSERT INTO activity_log (user_id, action, details, thread_name) VALUES (" + adminId + ", 'CONTENT_APPROVED', 'Approved user submitted fitness content', 'http-nio-8080-exec-7')");
+                    stmt.executeBatch();
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Failed to seed admin activity logs: " + e.getMessage());
+        }
     }
 
     private void executeSqlScript(Statement stmt, String resourcePath) throws Exception {
