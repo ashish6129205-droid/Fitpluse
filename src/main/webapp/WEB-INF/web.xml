@@ -24,6 +24,14 @@
         <filter-name>CsrfFilter</filter-name>
         <url-pattern>/register</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>CsrfFilter</filter-name>
+        <url-pattern>/forgot-password</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CsrfFilter</filter-name>
+        <url-pattern>/reset-password</url-pattern>
+    </filter-mapping>
 
     <error-page>
         <error-code>404</error-code>
