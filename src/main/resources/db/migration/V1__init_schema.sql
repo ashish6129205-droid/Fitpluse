@@ -165,3 +165,29 @@ BEGIN
 EXCEPTION
     WHEN duplicate_column THEN NULL;
 END $$;
+
+-- Seed Realistic Demo Data for user@fittrack.demo
+DO $$
+DECLARE
+    demo_user_id INTEGER;
+BEGIN
+    SELECT id INTO demo_user_id FROM users WHERE email = 'user@fittrack.demo';
+
+    IF demo_user_id IS NOT NULL THEN
+        -- 1. Running
+        INSERT INTO workouts (user_id, workout_type, duration_min, calories, steps, workout_date, notes, status, intensity)
+        VALUES (demo_user_id, 'Running', 45, 450, 6000, CURRENT_DATE - INTERVAL '3 days', 'Morning run', 'APPROVED', 'High');
+
+        -- 2. Strength Training
+        INSERT INTO workouts (user_id, workout_type, duration_min, calories, steps, workout_date, notes, status, intensity)
+        VALUES (demo_user_id, 'Strength Training', 60, 380, 0, CURRENT_DATE - INTERVAL '2 days', 'Upper body day', 'APPROVED', 'Medium');
+
+        -- 3. Cycling
+        INSERT INTO workouts (user_id, workout_type, duration_min, calories, steps, workout_date, notes, status, intensity)
+        VALUES (demo_user_id, 'Cycling', 35, 290, 0, CURRENT_DATE - INTERVAL '1 day', 'Evening ride', 'APPROVED', 'Medium');
+
+        -- 4. HIIT Cardio
+        INSERT INTO workouts (user_id, workout_type, duration_min, calories, steps, workout_date, notes, status, intensity)
+        VALUES (demo_user_id, 'HIIT Cardio', 30, 340, 2000, CURRENT_DATE, 'Quick HIIT session', 'APPROVED', 'High');
+    END IF;
+END $$;
