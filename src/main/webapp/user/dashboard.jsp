@@ -12,6 +12,55 @@
     <meta charset="UTF-8">
     <title>FitPulse - User Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #94a3b8;
+        }
+        h1, h2, h3, h4, h5, h6, .welcome-banner h2 {
+            color: #ffffff !important;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+        }
+        .stat-card h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+        .stat-card p {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            margin-bottom: 0;
+        }
+        .stat-card.emerald { border-top: 4px solid #10b981; }
+        .stat-card.cyan { border-top: 4px solid #0284c7; }
+        .stat-card.amber { border-top: 4px solid #f59e0b; }
+        .stat-card.primary { border-top: 4px solid #6366f1; }
+
+        .btn-primary {
+            background-color: #10b981;
+            color: #ffffff;
+            font-weight: bold;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+        .chart-container {
+            height: 300px;
+            max-height: 320px;
+        }
+    </style>
 </head>
 <body>
 <jsp:include page="navbar.jsp" />
@@ -94,13 +143,13 @@
                 <div class="row">
                     <div class="col-lg-8 mb-4 mb-lg-0">
                         <h5 class="mb-3">Calorie Burn Trend</h5>
-                        <div style="position: relative; height: 300px;">
+                        <div class="chart-container" style="position: relative;">
                             <canvas id="weeklyCalorieChart"></canvas>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <h5 class="mb-3 text-center">Workout Distribution</h5>
-                        <div style="position: relative; height: 300px;">
+                        <div class="chart-container" style="position: relative;">
                             <canvas id="workoutDistributionChart"></canvas>
                         </div>
                     </div>
@@ -197,12 +246,19 @@
                 pointBorderColor: "#10b981",
                 pointBorderWidth: 2,
                 pointRadius: 4,
-                pointHoverRadius: 6
+                pointHoverRadius: 8,
+                pointHoverBorderWidth: 3,
+                pointHoverBackgroundColor: "#10b981",
+                pointHoverBorderColor: "#ffffff"
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            animation: {
+                duration: 1500,
+                easing: 'easeOutQuart'
+            },
             scales: {
                 y: {
                     beginAtZero: true,

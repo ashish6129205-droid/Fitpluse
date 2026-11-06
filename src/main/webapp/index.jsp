@@ -56,6 +56,17 @@
             margin-right: auto;
             border: 1px solid rgba(255,255,255,0.1);
         }
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 5rem 0 3rem;
+            }
+            .hero-title {
+                font-size: 3rem;
+            }
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -74,9 +85,6 @@
                 <li class="nav-item">
                     <a class="btn btn-outline-light px-4" href="${pageContext.request.contextPath}/login">Login</a>
                 </li>
-                <li class="nav-item">
-                    <a class="btn btn-primary px-4" href="${pageContext.request.contextPath}/register">Get Started Free</a>
-                </li>
             </ul>
         </div>
     </div>
@@ -93,7 +101,6 @@
             Experience the ultimate fitness platform powered by atomic JDBC transaction safety, active streak monitoring, and real-time Chart.js analytics.
         </p>
         <div class="d-flex justify-content-center gap-3">
-            <a href="${pageContext.request.contextPath}/register" class="btn btn-primary btn-lg px-5 py-3 fs-5">Get Started Free</a>
             <a href="${pageContext.request.contextPath}/login" class="btn btn-outline-light btn-lg px-5 py-3 fs-5">Demo Login</a>
         </div>
     </div>
@@ -138,8 +145,7 @@
 <!-- Footer -->
 <footer class="py-4 text-center mt-5" style="border-top: 1px solid var(--border-subtle);">
     <div class="container">
-        <p class="text-secondary mb-1">&copy; 2024 FitPulse. All rights reserved.</p>
-        <p class="text-secondary small mb-0">Built with Jakarta EE, Neon PostgreSQL, and pure determination.</p>
+        <p class="text-secondary mb-1">&copy; 2026 FitPulse. All rights reserved.</p>
     </div>
 </footer>
 
