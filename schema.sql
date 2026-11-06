@@ -1,3 +1,6 @@
+-- Database Schema & Transaction Migration
+-- Managed by: Adarsh Mishra (Reg No: 25SCSE1180511)
+```[span_3](start_span)[span_3](end_span)
 CREATE TABLE IF NOT EXISTS users (
     id            SERIAL PRIMARY KEY,
     name          VARCHAR(100) NOT NULL,
