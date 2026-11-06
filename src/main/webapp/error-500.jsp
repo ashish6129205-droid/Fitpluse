@@ -7,47 +7,55 @@
     <meta charset="UTF-8">
     <title>FitPulse - System Error</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body {
-            background-color: #080c16;
+            background-color: var(--bg-primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             font-family: var(--font-main);
         }
-        .error-card {
-            background-color: rgba(22, 30, 49, 0.75);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--border-subtle);
-            border-radius: 1rem;
-            padding: 3rem 2rem;
+        .error-container {
             text-align: center;
+            padding: 3rem 2rem;
             max-width: 500px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-            color: var(--text-primary);
         }
         .error-code {
-            font-size: 5rem;
-            font-weight: 700;
-            color: var(--danger);
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+            font-family: var(--font-heading);
+            font-size: 6rem;
+            font-weight: 800;
+            color: var(--error);
+            line-height: 1;
+            margin-bottom: 1rem;
+            letter-spacing: -0.05em;
         }
-        .error-message {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
+        .error-icon {
+            color: var(--error);
+            opacity: 0.15;
+            margin-bottom: -40px;
+            position: relative;
+            z-index: -1;
         }
     </style>
 </head>
 <body>
-    <div class="error-card">
+    <div class="error-container">
+        <i data-lucide="alert-triangle" class="error-icon" style="width: 120px; height: 120px;"></i>
         <div class="error-code">500</div>
-        <h3 class="mb-3">Something went wrong</h3>
-        <p class="error-message">Our team has been notified. Please try again later.</p>
-        <a href="${pageContext.request.contextPath}/" class="btn btn-primary">Return to Safe Zone / Dashboard</a>
+        <h3 class="fw-bold mb-3 text-primary">Something went wrong</h3>
+        <p class="text-secondary mb-4 pb-2" style="font-size: 1.1rem; line-height: 1.6;">
+            We encountered an unexpected server error. Our team has been notified. Please try again later.
+        </p>
+        <a href="${pageContext.request.contextPath}/" class="btn btn-primary px-4 py-2 fs-6">
+            <i data-lucide="arrow-left" style="width: 18px; height: 18px;" class="me-2"></i> Return to Dashboard
+        </a>
     </div>
+
+<script>
+    lucide.createIcons();
+</script>
 </body>
 </html>
