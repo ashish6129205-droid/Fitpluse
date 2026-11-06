@@ -205,7 +205,10 @@ a:hover {
     box-shadow: var(--shadow-sm);
     margin-bottom: 1.5rem;
     transition: box-shadow var(--transition-speed) ease, transform var(--transition-speed) ease;
-    overflow: hidden;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .card:hover {
