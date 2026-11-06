@@ -80,7 +80,11 @@
         <p class="text-secondary small">Log in to track your progress</p>
     </div>
 
-    <!-- Quick Demo Credentials Helper -->
+    <c:if test="${param.reset == 'success'}">
+        <div class="alert alert-success" style="background:rgba(16,185,129,0.1); border-color:rgba(16,185,129,0.2); color:#10b981;">
+            Password updated successfully! Please log in with your new password.
+        </div>
+    </c:if>
 
     <c:if test="${not empty sessionScope.successMessage}">
         <div class="alert alert-success" style="background:rgba(16,185,129,0.1); border-color:rgba(16,185,129,0.2); color:#10b981;">
@@ -95,7 +99,7 @@
         </div>
     </c:if>
 
-    <form action="${pageContext.request.contextPath}/login" method="post">
+    <form action="login" method="post">
         <input type="hidden" name="_csrf" value="${csrfToken}" />
 
         <div class="mb-3">
@@ -115,7 +119,7 @@
                 <input type="password" class="form-control" id="password" name="password" required>
             </div>
             <div class="mt-2 text-end">
-                <a href="${pageContext.request.contextPath}/forgot-password.jsp" class="small text-decoration-none">Forgot Password?</a>
+                <a href="forgot-password" class="small text-decoration-none">Forgot Password?</a>
             </div>
         </div>
 
@@ -124,7 +128,7 @@
 
     <div class="text-center">
         <span class="text-secondary small">Don't have an account?</span>
-        <a href="${pageContext.request.contextPath}/register" class="small fw-bold">Create Account</a>
+        <a href="register" class="small fw-bold">Create Account</a>
     </div>
 </div>
 

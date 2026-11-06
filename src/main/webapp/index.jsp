@@ -101,43 +101,23 @@
             Experience the ultimate fitness platform powered by atomic JDBC transaction safety, active streak monitoring, and real-time Chart.js analytics.
         </p>
         <div class="d-flex justify-content-center gap-3">
-            <a href="${pageContext.request.contextPath}/login" class="btn btn-outline-light btn-lg px-5 py-3 fs-5">Demo Login</a>
+            <a href="login" class="btn btn-primary">Login</a>
         </div>
     </div>
 </section>
 
 <!-- Feature Showcase Grid -->
 <section class="container mb-5">
-    <div class="row g-4">
-        <!-- Feature 1 -->
-        <div class="col-md-4">
-            <div class="card h-100 text-center p-4">
-                <div class="feature-icon">📊</div>
-                <h4 class="mb-3">Visual Progress & Charts</h4>
-                <p class="text-secondary">
-                    Dive into dynamic Chart.js trends. Visualize your calorie burn and workout distribution effortlessly.
-                </p>
-            </div>
-        </div>
-        <!-- Feature 2 -->
-        <div class="col-md-4">
-            <div class="card h-100 text-center p-4">
-                <div class="feature-icon">🏆</div>
-                <h4 class="mb-3">Community Challenges</h4>
-                <p class="text-secondary">
-                    Compete on real-time global leaderboards backed by robust transactional safety.
-                </p>
-            </div>
-        </div>
-        <!-- Feature 3 -->
-        <div class="col-md-4">
-            <div class="card h-100 text-center p-4">
-                <div class="feature-icon">🛡️</div>
-                <h4 class="mb-3">Enterprise Security</h4>
-                <p class="text-secondary">
-                    Your data is safe with BCrypt salted encryption, strict CSRF protection, and HikariCP connection pooling.
-                </p>
-            </div>
+    <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 2.5rem; text-align: center; margin: 2rem auto; max-width: 900px;">
+        <h2 style="font-weight: bold; margin-bottom: 1rem; color: #fff;">Unified Fitness Tracking & Performance Analytics</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.6;">
+            Experience atomic transactional safety, automated streak progression, dynamic Chart.js data visualization, and secure role-based access control — all engineered into one high-performance Java web platform.
+        </p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
+            <span style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.5rem 1rem; border-radius: 999px; font-weight: 500;">⚡ Atomic JDBC Transactions</span>
+            <span style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.5rem 1rem; border-radius: 999px; font-weight: 500;">📊 Live Visual Analytics</span>
+            <span style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.5rem 1rem; border-radius: 999px; font-weight: 500;">🏆 Dynamic Leaderboards</span>
+            <span style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.5rem 1rem; border-radius: 999px; font-weight: 500;">🛡️ BCrypt & CSRF Protected</span>
         </div>
     </div>
 </section>

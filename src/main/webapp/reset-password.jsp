@@ -71,16 +71,8 @@
         <c:remove var="successMessage" scope="session" />
     </c:if>
 
-    <form action="${pageContext.request.contextPath}/reset-password" method="post">
+    <form action="reset-password" method="post">
         <input type="hidden" name="_csrf" value="${csrfToken}" />
-
-        <div class="mb-3">
-            <label for="token" class="form-label">Reset Token</label>
-            <div class="input-group">
-                <span class="input-group-text">🔑</span>
-                <input type="text" class="form-control" id="token" name="token" required>
-            </div>
-        </div>
 
         <div class="mb-3">
             <label for="password" class="form-label">New Password</label>
@@ -102,7 +94,7 @@
     </form>
 
     <div class="text-center">
-        <a href="${pageContext.request.contextPath}/login" class="small text-decoration-none">Back to Login</a>
+        <a href="login" class="small text-decoration-none">Back to Login</a>
     </div>
 </div>
 

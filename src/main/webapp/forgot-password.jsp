@@ -64,22 +64,22 @@
         </div>
     </c:if>
 
-    <form action="${pageContext.request.contextPath}/forgot-password" method="post">
+    <form action="forgot-password" method="post">
         <input type="hidden" name="_csrf" value="${csrfToken}" />
 
         <div class="mb-4">
-            <label for="email" class="form-label">Email address</label>
+            <label for="email" class="form-label">Registered Email</label>
             <div class="input-group">
                 <span class="input-group-text">✉️</span>
                 <input type="email" class="form-control" id="email" name="email" required>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100 py-2 mb-3">Continue</button>
+        <button type="submit" class="btn btn-primary w-100 py-2 mb-3">Send Reset Link</button>
     </form>
 
     <div class="text-center">
-        <a href="${pageContext.request.contextPath}/login" class="small text-decoration-none">Back to Login</a>
+        <a href="login" class="small text-decoration-none">Back to Login</a>
     </div>
 </div>
 

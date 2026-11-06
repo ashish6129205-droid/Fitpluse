@@ -25,24 +25,28 @@ public class ResetPasswordServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession(false);
+        if (session == null || session.getAttribute("resetUserEmail") == null) {
+            resp.sendRedirect(req.getContextPath() + "/login");
+            return;
+        }
         req.getRequestDispatcher("/reset-password.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String token = req.getParameter("token");
-        String password = req.getParameter("password");
-        String confirmPassword = req.getParameter("confirmPassword");
-
-        if (token == null || token.trim().isEmpty() || password == null || password.trim().isEmpty() || confirmPassword == null || confirmPassword.trim().isEmpty()) {
-            req.setAttribute("errorMessage", "All fields are required.");
-            req.getRequestDispatcher("/reset-password.jsp").forward(req, resp);
+        HttpSession session = req.getSession(false);
+        if (session == null || session.getAttribute("resetUserEmail") == null) {
+            resp.sendRedirect(req.getContextPath() + "/login");
             return;
         }
 
-        String email = PasswordResetService.getEmailForToken(token.trim());
-        if (email == null) {
-            req.setAttribute("errorMessage", "Invalid or expired reset token.");
+        String email = (String) session.getAttribute("resetUserEmail");
+        String password = req.getParameter("password");
+        String confirmPassword = req.getParameter("confirmPassword");
+
+        if (password == null || password.trim().isEmpty() || confirmPassword == null || confirmPassword.trim().isEmpty()) {
+            req.setAttribute("errorMessage", "All fields are required.");
             req.getRequestDispatcher("/reset-password.jsp").forward(req, resp);
             return;
         }
@@ -63,12 +67,10 @@ public class ResetPasswordServlet extends HttpServlet {
             String hashed = PasswordUtil.hashPassword(password);
             userDao.updatePassword(email, hashed);
 
-            // Invalid the token
-            PasswordResetService.removeToken(token.trim());
+            // Remove email from session to prevent replay
+            session.removeAttribute("resetUserEmail");
 
-            HttpSession session = req.getSession(true);
-            session.setAttribute("successMessage", "Password reset successfully. Please log in.");
-            resp.sendRedirect(req.getContextPath() + "/login");
+            resp.sendRedirect(req.getContextPath() + "/login?reset=success");
         } catch (Exception e) {
             req.setAttribute("errorMessage", "An error occurred while resetting your password.");
             req.getRequestDispatcher("/reset-password.jsp").forward(req, resp);
