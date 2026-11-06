@@ -5,130 +5,122 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <meta charset="UTF-8">
-    <title>FitPulse - Elevate Your Fitness Tracking</title>
+    <title>FitPulse - Premium Fitness Tracking</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        .landing-body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
         .hero-section {
-            padding: 8rem 0 5rem;
+            padding: 6rem 0 4rem;
             text-align: center;
         }
         .hero-badge {
             display: inline-flex;
             align-items: center;
             padding: 0.5rem 1rem;
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            color: #10b981;
+            background: rgba(22, 125, 90, 0.1);
+            border: 1px solid rgba(22, 125, 90, 0.2);
+            color: var(--accent-primary);
             border-radius: 9999px;
             font-size: 0.875rem;
             font-weight: 600;
             margin-bottom: 2rem;
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+            box-shadow: var(--shadow-sm);
         }
         .hero-title {
-            font-size: 4.5rem;
+            font-family: var(--font-heading);
+            font-size: 4rem;
             font-weight: 800;
-            letter-spacing: -0.05em;
+            letter-spacing: -0.04em;
             line-height: 1.1;
             margin-bottom: 1.5rem;
-            background: linear-gradient(to right, #f8fafc, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text-primary);
         }
         .hero-subtitle {
             font-size: 1.25rem;
             color: var(--text-secondary);
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto 3rem;
             line-height: 1.6;
         }
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            margin-left: auto;
-            margin-right: auto;
-            border: 1px solid rgba(255,255,255,0.1);
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            text-align: center;
+            margin: 2rem auto;
+            max-width: 900px;
+            box-shadow: var(--shadow-md);
+        }
+        .landing-nav {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
         }
         @media (max-width: 768px) {
-            .hero-section {
-                padding: 5rem 0 3rem;
-            }
-            .hero-title {
-                font-size: 3rem;
-            }
-            .hero-subtitle {
-                font-size: 1.1rem;
-            }
+            .hero-section { padding: 4rem 0 2rem; }
+            .hero-title { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1.1rem; }
         }
     </style>
 </head>
-<body>
+<body class="landing-body">
 
-<!-- Floating Frosted Glass Navbar -->
-<nav class="navbar navbar-expand-lg sticky-top">
-    <div class="container-fluid px-4 py-2">
-        <a class="navbar-brand" href="#">
-            <span class="brand-dot"></span> FitPulse
+<nav class="navbar navbar-expand-lg landing-nav sticky-top py-3">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand sidebar-brand" href="#">
+            <i data-lucide="activity" class="brand-icon"></i> FitPulse
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav gap-3">
-                <li class="nav-item">
-                    <a class="btn btn-outline-light px-4" href="${pageContext.request.contextPath}/login">Login</a>
-                </li>
-            </ul>
+        <div class="d-flex ms-auto gap-3">
+            <a href="login" class="btn btn-outline-primary px-4">Log In</a>
+            <a href="register" class="btn btn-primary px-4 d-none d-sm-inline-flex">Sign Up</a>
         </div>
     </div>
 </nav>
 
-<!-- Hero Section -->
 <section class="hero-section">
     <div class="container">
         <div class="hero-badge">
-            ⚡ Intelligent Fitness Tracking & Analytics
+            <i data-lucide="zap" class="me-2" style="width: 16px; height: 16px;"></i> Premium Performance Analytics
         </div>
-        <h1 class="hero-title">Level Up Your Fitness.<br>Track Every Rep.<br>Crush Every Goal.</h1>
+        <h1 class="hero-title">Train Smarter.<br>Track Better.<br>Perform Stronger.</h1>
         <p class="hero-subtitle">
-            Experience the ultimate fitness platform powered by atomic JDBC transaction safety, active streak monitoring, and real-time Chart.js analytics.
+            Experience the ultimate fitness platform powered by atomic transactional safety, active streak monitoring, and real-time visual analytics. Built for athletes, designed for everyone.
         </p>
         <div class="d-flex justify-content-center gap-3">
-            <a href="login" class="btn btn-primary">Login</a>
+            <a href="register" class="btn btn-primary px-5 py-3 fs-5">Get Started Free</a>
+            <a href="login" class="btn btn-secondary px-5 py-3 fs-5 d-none d-sm-inline-flex">Sign In</a>
         </div>
     </div>
 </section>
 
-<!-- Feature Showcase Grid -->
-<section class="container mb-5">
-    <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 2.5rem; text-align: center; margin: 2rem auto; max-width: 900px;">
-        <h2 style="font-weight: bold; margin-bottom: 1rem; color: #fff;">Unified Fitness Tracking & Performance Analytics</h2>
-        <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.6;">
-            Experience atomic transactional safety, automated streak progression, dynamic Chart.js data visualization, and secure role-based access control — all engineered into one high-performance Java web platform.
+<section class="container mb-5 pb-5">
+    <div class="feature-card">
+        <h2 class="mb-3">Unified Fitness Tracking</h2>
+        <p class="text-secondary mb-4 fs-5" style="max-width: 700px; margin: 0 auto;">
+            Experience a professional sports analytics dashboard seamlessly integrated into one high-performance platform.
         </p>
-        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
-            <span style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.5rem 1rem; border-radius: 999px; font-weight: 500;">⚡ Atomic JDBC Transactions</span>
-            <span style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.5rem 1rem; border-radius: 999px; font-weight: 500;">📊 Live Visual Analytics</span>
-            <span style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.5rem 1rem; border-radius: 999px; font-weight: 500;">🏆 Dynamic Leaderboards</span>
-            <span style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.5rem 1rem; border-radius: 999px; font-weight: 500;">🛡️ BCrypt & CSRF Protected</span>
+        <div class="d-flex flex-wrap justify-content-center gap-3 mt-4">
+            <span class="badge bg-secondary text-primary fs-6 py-2 px-3 fw-medium" style="background-color: var(--bg-secondary) !important; color: var(--text-primary) !important; border: 1px solid var(--border-color);"><i data-lucide="shield-check" class="me-1 d-inline" style="width:16px;height:16px;"></i> Secure & Atomic</span>
+            <span class="badge bg-secondary text-primary fs-6 py-2 px-3 fw-medium" style="background-color: var(--bg-secondary) !important; color: var(--text-primary) !important; border: 1px solid var(--border-color);"><i data-lucide="bar-chart-3" class="me-1 d-inline" style="width:16px;height:16px;"></i> Live Analytics</span>
+            <span class="badge bg-secondary text-primary fs-6 py-2 px-3 fw-medium" style="background-color: var(--bg-secondary) !important; color: var(--text-primary) !important; border: 1px solid var(--border-color);"><i data-lucide="trophy" class="me-1 d-inline" style="width:16px;height:16px;"></i> Dynamic Leaderboards</span>
+            <span class="badge bg-secondary text-primary fs-6 py-2 px-3 fw-medium" style="background-color: var(--bg-secondary) !important; color: var(--text-primary) !important; border: 1px solid var(--border-color);"><i data-lucide="target" class="me-1 d-inline" style="width:16px;height:16px;"></i> Goal Tracking</span>
         </div>
     </div>
 </section>
 
-<!-- Footer -->
-<footer class="py-4 text-center mt-5" style="border-top: 1px solid var(--border-subtle);">
+<footer class="py-4 text-center mt-auto" style="border-top: 1px solid var(--border-color); background-color: var(--bg-card);">
     <div class="container">
-        <p class="text-secondary mb-1">&copy; 2026 FitPulse. All rights reserved.</p>
+        <p class="text-secondary mb-0 fw-medium">&copy; 2026 FitPulse. All rights reserved.</p>
     </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    lucide.createIcons();
+</script>
 </body>
 </html>
