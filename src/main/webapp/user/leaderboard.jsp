@@ -13,8 +13,8 @@
             display: flex;
             align-items: flex-end;
             justify-content: center;
-            gap: 1rem;
-            margin: 3rem 0;
+            gap: 20px;
+            margin-bottom: 35px;
             min-height: 250px;
         }
         .podium-card {
@@ -61,7 +61,7 @@
         /* Silver (2nd) */
         .podium-silver {
             background: linear-gradient(180deg, #E2E8F0 0%, #94A3B8 100%);
-            height: 170px;
+            height: 180px;
             border: 1px solid #CBD5E1;
             z-index: 2;
             color: #1E293B;
@@ -72,7 +72,7 @@
         /* Bronze (3rd) */
         .podium-bronze {
             background: linear-gradient(180deg, #FDBA74 0%, #D97706 100%);
-            height: 140px;
+            height: 160px;
             border: 1px solid #F97316;
             z-index: 1;
             color: #7C2D12;
@@ -170,7 +170,7 @@
                                 <div class="podium-card podium-silver">
                                     <div class="avatar"><c:out value="${leaderboard.get(1).userName.substring(0,1).toUpperCase()}" /></div>
                                     <div class="rank-number rank">2</div>
-                                    <h5 class="fw-bold mb-1 text-truncate px-2"><c:out value="${leaderboard.get(1).userName}" /></h5>
+                                    <h5 class="fw-bold mb-1 text-truncate px-2"><c:out value="${leaderboard.get(1).userName}" default="Athlete" /></h5>
                                     <div class="fw-bold fs-5 mb-1"><c:out value="${leaderboard.get(1).totalCalories}" /> <span class="small fw-medium">kcal</span></div>
                                 </div>
                             </div>
@@ -182,7 +182,7 @@
                                 <div class="podium-card podium-gold shadow-lg">
                                     <div class="avatar"><c:out value="${leaderboard.get(0).userName.substring(0,1).toUpperCase()}" /></div>
                                     <div class="rank-number rank">1</div>
-                                    <h4 class="fw-bold mb-1 text-truncate px-2"><c:out value="${leaderboard.get(0).userName}" /></h4>
+                                    <h4 class="fw-bold mb-1 text-truncate px-2"><c:out value="${leaderboard.get(0).userName}" default="Athlete" /></h4>
                                     <div class="fw-bold fs-4 mb-1"><c:out value="${leaderboard.get(0).totalCalories}" /> <span class="fs-6 fw-medium">kcal</span></div>
                                     <div class="small fw-medium opacity-75"><c:out value="${leaderboard.get(0).workoutCount}" /> workouts</div>
                                 </div>
@@ -195,7 +195,7 @@
                                 <div class="podium-card podium-bronze">
                                     <div class="avatar"><c:out value="${leaderboard.get(2).userName.substring(0,1).toUpperCase()}" /></div>
                                     <div class="rank-number rank">3</div>
-                                    <h5 class="fw-bold mb-1 text-truncate px-2"><c:out value="${leaderboard.get(2).userName}" /></h5>
+                                    <h5 class="fw-bold mb-1 text-truncate px-2"><c:out value="${leaderboard.get(2).userName}" default="Athlete" /></h5>
                                     <div class="fw-bold fs-5 mb-1"><c:out value="${leaderboard.get(2).totalCalories}" /> <span class="small fw-medium">kcal</span></div>
                                 </div>
                             </div>

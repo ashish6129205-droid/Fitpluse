@@ -41,7 +41,7 @@
                 <div class="card-body p-4 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
                     <div>
                         <h2 class="mb-1">Ready to crush your goals?</h2>
-                        <p class="text-secondary mb-0">Track your progress, log workouts, and stay consistent.</p>
+                        <p class="mb-0" style="color: rgba(255, 255, 255, 0.95); font-weight: 500;">Track your progress, log workouts, and stay consistent.</p>
                     </div>
                     <div class="d-inline-flex align-items-center gap-2 px-3 py-2 bg-card rounded-pill border shadow-sm bg-white">
                         <i data-lucide="calendar" class="text-secondary" style="width:16px;height:16px;"></i>
@@ -68,40 +68,40 @@
                     <div class="card stat-card primary h-100">
                         <div class="d-flex justify-content-between align-items-start">
                             <div class="stat-icon"><i data-lucide="activity"></i></div>
-                            <span class="badge bg-secondary">Total</span>
+                            <span class="badge bg-secondary text-uppercase" style="letter-spacing: 0.05em; font-size: 0.65rem;">Total</span>
                         </div>
                         <h3 class="mt-2">${totalWorkouts}</h3>
-                        <p>Workouts Logged</p>
+                        <p class="text-uppercase" style="letter-spacing: 0.05em; font-size: 0.75rem; font-weight: 600;">Workouts Logged</p>
                     </div>
                 </div>
                 <div class="col-sm-6 col-xl-3 mb-3 mb-xl-0">
                     <div class="card stat-card warning h-100">
                         <div class="d-flex justify-content-between align-items-start">
                             <div class="stat-icon"><i data-lucide="flame"></i></div>
-                            <span class="badge bg-secondary">Active</span>
+                            <span class="badge bg-secondary text-uppercase" style="letter-spacing: 0.05em; font-size: 0.65rem;">Active</span>
                         </div>
                         <h3 class="mt-2">${totalCalories}</h3>
-                        <p>Kcal Burned</p>
+                        <p class="text-uppercase" style="letter-spacing: 0.05em; font-size: 0.75rem; font-weight: 600;">Kcal Burned</p>
                     </div>
                 </div>
                 <div class="col-sm-6 col-xl-3 mb-3 mb-xl-0">
                     <div class="card stat-card success h-100">
                         <div class="d-flex justify-content-between align-items-start">
                             <div class="stat-icon"><i data-lucide="zap"></i></div>
-                            <span class="badge bg-secondary">Current</span>
+                            <span class="badge bg-secondary text-uppercase" style="letter-spacing: 0.05em; font-size: 0.65rem;">Current</span>
                         </div>
                         <h3 class="mt-2">${currentStreak}</h3>
-                        <p>Day Streak</p>
+                        <p class="text-uppercase" style="letter-spacing: 0.05em; font-size: 0.75rem; font-weight: 600;">Day Streak</p>
                     </div>
                 </div>
                 <div class="col-sm-6 col-xl-3">
                     <div class="card stat-card info h-100">
                         <div class="d-flex justify-content-between align-items-start">
                             <div class="stat-icon"><i data-lucide="target"></i></div>
-                            <span class="badge bg-secondary">Progress</span>
+                            <span class="badge bg-secondary text-uppercase" style="letter-spacing: 0.05em; font-size: 0.65rem;">Progress</span>
                         </div>
                         <h3 class="mt-2">${goalCompletionPercent}%</h3>
-                        <p>Goal Completion</p>
+                        <p class="text-uppercase" style="letter-spacing: 0.05em; font-size: 0.75rem; font-weight: 600;">Goal Completion</p>
                     </div>
                 </div>
             </div>
@@ -115,8 +115,8 @@
                             <i data-lucide="trending-up" class="text-secondary" style="width:18px;height:18px;"></i>
                         </div>
                         <div class="card-body">
-                            <div class="chart-container" style="position: relative; height: 300px;">
-                                <canvas id="weeklyCalorieChart"></canvas>
+                            <div class="chart-container" style="position: relative; height: 280px; width: 100%;">
+                                <canvas id="weeklyCalorieChart" style="margin-bottom: 14px;"></canvas>
                             </div>
                         </div>
                     </div>
@@ -183,7 +183,7 @@
                                         <c:forEach var="w" items="${recentWorkouts}">
                                             <tr>
                                                 <td data-label="Date" class="fw-medium">${w.workoutDate}</td>
-                                                <td data-label="Type"><span class="badge bg-secondary text-primary border"><i data-lucide="activity" style="width:10px;height:10px;margin-right:4px;"></i>${w.workoutType}</span></td>
+                                                <td data-label="Type"><span class="badge badge-type border"><i data-lucide="activity" style="width:10px;height:10px;margin-right:4px;"></i>${w.workoutType}</span></td>
                                                 <td data-label="Duration">${w.durationMin} min</td>
                                                 <td data-label="Calories" class="fw-medium text-primary">${w.calories} kcal</td>
                                                 <td data-label="Intensity">
@@ -227,8 +227,8 @@
     const values = valuesStr ? valuesStr.split(",") : [];
 
     const gradientFill = ctx.createLinearGradient(0, 0, 0, 300);
-    gradientFill.addColorStop(0, primaryLight);
-    gradientFill.addColorStop(1, "rgba(22, 125, 90, 0.0)");
+    gradientFill.addColorStop(0, "rgba(16, 185, 129, 0.5)"); // emerald to transparent
+    gradientFill.addColorStop(1, "rgba(16, 185, 129, 0.0)");
 
     new Chart(ctx, {
         type: "line",

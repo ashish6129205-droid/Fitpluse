@@ -75,8 +75,7 @@
             <i data-lucide="activity" class="brand-icon"></i> FitPulse
         </a>
         <div class="d-flex ms-auto gap-3">
-            <a href="login" class="btn btn-outline-primary px-4">Log In</a>
-            <a href="register" class="btn btn-primary px-4 d-none d-sm-inline-flex">Sign Up</a>
+            <a href="login" class="btn btn-outline-primary px-4">Login</a>
         </div>
     </div>
 </nav>
@@ -91,23 +90,18 @@
             Experience the ultimate fitness platform powered by atomic transactional safety, active streak monitoring, and real-time visual analytics. Built for athletes, designed for everyone.
         </p>
         <div class="d-flex justify-content-center gap-3">
-            <a href="register" class="btn btn-primary px-5 py-3 fs-5">Get Started Free</a>
-            <a href="login" class="btn btn-secondary px-5 py-3 fs-5 d-none d-sm-inline-flex">Sign In</a>
+            <a href="login" class="btn btn-primary px-5 py-3 fs-5">Login</a>
         </div>
     </div>
 </section>
 
 <section class="container mb-5 pb-5">
-    <div class="feature-card">
-        <h2 class="mb-3">Unified Fitness Tracking</h2>
-        <p class="text-secondary mb-4 fs-5" style="max-width: 700px; margin: 0 auto;">
-            Experience a professional sports analytics dashboard seamlessly integrated into one high-performance platform.
-        </p>
-        <div class="d-flex flex-wrap justify-content-center gap-3 mt-4">
-            <span class="badge bg-secondary text-primary fs-6 py-2 px-3 fw-medium" style="background-color: var(--bg-secondary) !important; color: var(--text-primary) !important; border: 1px solid var(--border-color);"><i data-lucide="shield-check" class="me-1 d-inline" style="width:16px;height:16px;"></i> Secure & Atomic</span>
-            <span class="badge bg-secondary text-primary fs-6 py-2 px-3 fw-medium" style="background-color: var(--bg-secondary) !important; color: var(--text-primary) !important; border: 1px solid var(--border-color);"><i data-lucide="bar-chart-3" class="me-1 d-inline" style="width:16px;height:16px;"></i> Live Analytics</span>
-            <span class="badge bg-secondary text-primary fs-6 py-2 px-3 fw-medium" style="background-color: var(--bg-secondary) !important; color: var(--text-primary) !important; border: 1px solid var(--border-color);"><i data-lucide="trophy" class="me-1 d-inline" style="width:16px;height:16px;"></i> Dynamic Leaderboards</span>
-            <span class="badge bg-secondary text-primary fs-6 py-2 px-3 fw-medium" style="background-color: var(--bg-secondary) !important; color: var(--text-primary) !important; border: 1px solid var(--border-color);"><i data-lucide="target" class="me-1 d-inline" style="width:16px;height:16px;"></i> Goal Tracking</span>
+    <div class="feature-card glassmorphic">
+        <div class="d-flex flex-wrap justify-content-center gap-4 mt-4">
+            <span class="fs-5 fw-medium"><i data-lucide="shield-check" class="me-1 d-inline" style="width:20px;height:20px;"></i> ⚡ Atomic JDBC Transactions</span>
+            <span class="fs-5 fw-medium"><i data-lucide="bar-chart-3" class="me-1 d-inline" style="width:20px;height:20px;"></i> 📊 Real-Time Analytics</span>
+            <span class="fs-5 fw-medium"><i data-lucide="trophy" class="me-1 d-inline" style="width:20px;height:20px;"></i> 🏆 Global Leaderboard</span>
+            <span class="fs-5 fw-medium"><i data-lucide="lock" class="me-1 d-inline" style="width:20px;height:20px;"></i> 🛡️ BCrypt & CSRF Protected</span>
         </div>
     </div>
 </section>
