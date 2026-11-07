@@ -75,7 +75,7 @@
             </div>
 
             <!-- Rest of the ranking -->
-            <div class="table-wrapper">
+            <div class="table-responsive">
                 <table class="table table-responsive-stack">
                     <thead>
                         <tr>
