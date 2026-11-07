@@ -128,8 +128,10 @@ public class WorkoutDaoImpl implements WorkoutDao {
     public List<com.fitpulse.model.UserRank> getLeaderboard() {
         List<com.fitpulse.model.UserRank> leaderboard = new ArrayList<>();
         String sql = "SELECT u.id, u.name, COALESCE(SUM(w.calories), 0) AS total_calories, COUNT(w.id) AS workout_count " +
-                     "FROM users u LEFT JOIN workouts w ON u.id = w.user_id " +
-                     "GROUP BY u.id, u.name ORDER BY total_calories DESC, workout_count DESC LIMIT 20";
+                     "FROM users u INNER JOIN workouts w ON u.id = w.user_id " +
+                     "WHERE u.role != 'ADMIN' AND u.email NOT LIKE '%admin%' AND u.active = TRUE " +
+                     "GROUP BY u.id, u.name HAVING SUM(w.calories) > 0 " +
+                     "ORDER BY total_calories DESC, workout_count DESC LIMIT 20";
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
