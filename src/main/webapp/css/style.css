@@ -362,3 +362,47 @@ h1, h2, h3, h4, h5, h6 {
         letter-spacing: 0.05em;
     }
 }
+
+.welcome-nav-login-btn, nav a[href*="login"] {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 8px 22px !important;
+    height: 38px !important;
+    line-height: 1 !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border-radius: 8px !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease !important;
+}
+.welcome-nav-login-btn:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: #ffffff !important;
+}
+
+
+.navbar-toggler, .mobile-menu-btn, button[data-bs-toggle="offcanvas"], button[data-bs-toggle="collapse"] {
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    padding: 6px 10px !important;
+    border-radius: 8px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+/* Ensure the 3 hamburger lines are pure white and thicker */
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.5' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+}
+/* If custom span lines are used */
+.navbar-toggler span, .hamburger-line {
+    background-color: #ffffff !important;
+    height: 2.5px !important;
+    display: block !important;
+    border-radius: 2px !important;
+}
