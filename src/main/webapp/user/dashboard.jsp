@@ -87,14 +87,14 @@
         <div class="col-md-12">
     <div class="row mb-5">
         <div class="col-12">
-            <div class="card p-4" style="position: relative; height: 280px; width: 100%;">
-                <h5 class="mb-3">Weekly Calorie Burn & Activity Trends</h5>
-                <canvas id="weeklyCalorieChart"></canvas>
+            <div class="card p-4">
+                <h5 class="mb-3">Weekly Calories Burned</h5>
+                <canvas id="weeklyCalorieChart" height="80"></canvas>
             </div>
         </div>
     </div>
 
-            <div class="d-flex justify-content-between align-items-center mb-4 mt-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4>Recent Activity</h4>
                 <a href="${pageContext.request.contextPath}/user/export-workouts" class="btn btn-outline-light btn-sm">Export to CSV</a>
             </div>
@@ -146,35 +146,25 @@
     const valuesStr = "${calValues}";
     const values = valuesStr ? valuesStr.split(",") : [];
 
-    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, 'rgba(16, 185, 129, 0.5)');
-    gradient.addColorStop(1, 'rgba(16, 185, 129, 0.0)');
-
     new Chart(ctx, {
-        type: "line",
+        type: "bar",
         data: {
-            labels: labels.length > 0 ? labels : ['No Data'],
+            labels: labels,
             datasets: [{
                 label: "Calories Burned",
-                data: values.length > 0 ? values : [0],
-                backgroundColor: gradient,
+                data: values,
+                backgroundColor: "rgba(16, 185, 129, 0.8)",
                 borderColor: "rgba(16, 185, 129, 1)",
-                borderWidth: 2,
-                fill: true,
-                tension: 0.4,
-                pointBackgroundColor: "rgba(16, 185, 129, 1)",
-                pointBorderColor: "#fff",
-                pointHoverBackgroundColor: "#fff",
-                pointHoverBorderColor: "rgba(16, 185, 129, 1)"
+                borderWidth: 1,
+                borderRadius: 4
             }]
         },
         options: {
             responsive: true,
-            maintainAspectRatio: false,
             scales: {
                 y: {
                     beginAtZero: true,
-                    grid: { color: "rgba(255, 255, 255, 0.08)" },
+                    grid: { color: "rgba(255, 255, 255, 0.1)" },
                     ticks: { color: "#9ca3af" }
                 },
                 x: {
@@ -184,18 +174,7 @@
             },
             plugins: {
                 legend: { display: false },
-                tooltip: {
-                    backgroundColor: 'rgba(11, 15, 25, 0.9)',
-                    titleColor: '#fff',
-                    bodyColor: '#fff',
-                    borderColor: 'rgba(16, 185, 129, 0.3)',
-                    borderWidth: 1,
-                    callbacks: {
-                        label: function(context) {
-                            return context.parsed.y + ' kcal';
-                        }
-                    }
-                }
+                tooltip: { backgroundColor: 'rgba(0,0,0,0.8)' }
             }
         }
     });
