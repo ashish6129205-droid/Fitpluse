@@ -37,7 +37,7 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <div class="table-wrapper">
+                    <div class="table-responsive">
                         <table class="table table-striped table-responsive-stack">
                             <thead>
                                 <tr>

@@ -1,10 +1,11 @@
 /* FitPulse Ultra-Clean Modern SaaS Theme */
 :root {
-    --bg-obsidian: #0a0f1d;
-    --card-slate: #151e32;
+    --bg-obsidian: #0b0f19;
+    --card-slate: #111827;
+    --card-slate-secondary: #1e293b;
     --border-subtle: #22304d;
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
+    --text-primary: #ffffff;
+    --text-secondary: #cbd5e1;
 
     --accent-emerald: #10b981;
     --accent-emerald-hover: #059669;
@@ -41,7 +42,7 @@ a:hover {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: var(--text-primary);
+    color: #ffffff;
     font-weight: 600;
     letter-spacing: -0.02em;
 }
@@ -102,8 +103,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 .card {
     background-color: var(--card-slate);
-    border: 1px solid var(--border-subtle);
-    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
     box-shadow: var(--shadow-soft);
     color: var(--text-primary);
     margin-bottom: 1.5rem;
@@ -166,9 +167,13 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     margin-bottom: 0.5rem;
 }
+.stat-card.emerald { border-top: 4px solid var(--accent-emerald); }
 .stat-card.emerald h3 { color: var(--accent-emerald); }
+.stat-card.cyan { border-top: 4px solid var(--accent-cyan); }
 .stat-card.cyan h3 { color: var(--accent-cyan); }
+.stat-card.amber { border-top: 4px solid var(--accent-amber); }
 .stat-card.amber h3 { color: var(--accent-amber); }
+.stat-card.primary { border-top: 4px solid var(--accent-cyan); }
 .stat-card.primary h3 { color: var(--text-primary); }
 
 .stat-card p {
@@ -245,7 +250,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Tables */
-.table-wrapper {
+.table-responsive {
     background: var(--card-slate);
     border-radius: 1rem;
     border: 1px solid var(--border-subtle);
@@ -284,16 +289,20 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     font-size: 0.75rem;
     letter-spacing: 0.02em;
+    color: #ffffff !important;
+}
+.badge-type {
+    color: #ffffff !important;
 }
 .bg-primary {
-    background-color: rgba(6, 182, 212, 0.1) !important;
-    color: var(--accent-cyan) !important;
-    border: 1px solid rgba(6, 182, 212, 0.2);
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+    border: 1px solid #2563eb;
 }
 .bg-success {
-    background-color: rgba(16, 185, 129, 0.1) !important;
-    color: var(--accent-emerald) !important;
-    border: 1px solid rgba(16, 185, 129, 0.2);
+    background-color: #10b981 !important;
+    color: #ffffff !important;
+    border: 1px solid #10b981;
 }
 
 /* Empty State */
