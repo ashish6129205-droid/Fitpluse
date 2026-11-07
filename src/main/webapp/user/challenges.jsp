@@ -84,7 +84,7 @@
                     <c:otherwise>
                         <c:forEach var="c" items="${activeChallenges}">
                             <div class="col-md-6 col-xl-4 mb-4">
-                                <div class="card h-100 challenge-card border">
+                                <div class="card h-100 challenge-card border" style="display: flex; flex-direction: column; height: 100%;">
                                     <div class="card-body d-flex flex-column p-4">
                                         <div class="d-flex justify-content-between align-items-start mb-3">
                                             <div class="challenge-icon-wrapper">
@@ -111,12 +111,12 @@
 
                                         <c:choose>
                                             <c:when test="${joinedIds.contains(c.id)}">
-                                                <button class="btn btn-outline-success w-100 disabled" style="opacity: 1; cursor: default;">
+                                                <button class="btn btn-outline-success w-100 disabled mt-auto" style="opacity: 1; cursor: default;">
                                                     <i data-lucide="check" style="width:16px;height:16px;margin-right:4px;"></i> Joined / Active
                                                 </button>
                                             </c:when>
                                             <c:otherwise>
-                                                <form action="${pageContext.request.contextPath}/user/challenges" method="post" class="w-100 m-0">
+                                                <form action="${pageContext.request.contextPath}/user/challenges" method="post" class="w-100 m-0 mt-auto">
                                                     <input type="hidden" name="_csrf" value="${csrfToken}" />
                                                     <input type="hidden" name="action" value="join">
                                                     <input type="hidden" name="challengeId" value="${c.id}">

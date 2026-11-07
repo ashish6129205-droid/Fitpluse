@@ -51,14 +51,14 @@
                     <form action="${pageContext.request.contextPath}/user/workouts" method="post">
                         <input type="hidden" name="_csrf" value="${csrfToken}" />
                         <div class="row g-3">
-                            <div class="col-md-6 col-lg-3">
+                            <div class="col-12 col-md-4">
                                 <label class="form-label">Date</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i data-lucide="calendar" style="width:16px;height:16px;"></i></span>
                                     <input type="date" class="form-control" name="workoutDate" required>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-lg-3">
+                            <div class="col-12 col-md-4">
                                 <label class="form-label">Type</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i data-lucide="activity" style="width:16px;height:16px;"></i></span>
@@ -72,7 +72,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-lg-2">
+                            <div class="col-12 col-md-4">
                                 <label class="form-label">Intensity</label>
                                 <select class="form-select" name="intensity">
                                     <option value="Low">Low</option>
@@ -80,14 +80,16 @@
                                     <option value="High">High</option>
                                 </select>
                             </div>
-                            <div class="col-md-4 col-lg-2">
+                        </div>
+                        <div class="row g-3 mt-1">
+                            <div class="col-12 col-md-6">
                                 <label class="form-label">Duration</label>
                                 <div class="input-group">
                                     <input type="number" class="form-control" name="durationMin" placeholder="0" required>
                                     <span class="input-group-text">min</span>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-lg-2">
+                            <div class="col-12 col-md-6">
                                 <label class="form-label">Calories</label>
                                 <div class="input-group">
                                     <input type="number" class="form-control" name="calories" placeholder="0" required>
@@ -95,13 +97,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-3">
-                            <div class="col-12 mb-3">
+                        <div class="row g-3 mt-1">
+                            <div class="col-12">
                                 <label class="form-label">Notes (Optional)</label>
                                 <textarea class="form-control" name="notes" rows="2" placeholder="How did it feel?"></textarea>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-end mt-2">
+                        <div class="d-flex justify-content-end mt-3">
                             <button type="submit" class="btn btn-primary px-4">Log Workout</button>
                         </div>
                     </form>
@@ -139,7 +141,7 @@
                                         <c:forEach var="w" items="${workouts}">
                                             <tr>
                                                 <td data-label="Date" class="fw-medium">${w.workoutDate}</td>
-                                                <td data-label="Type"><span class="badge bg-secondary text-primary border"><i data-lucide="activity" style="width:10px;height:10px;margin-right:4px;"></i>${w.workoutType}</span></td>
+                                                <td data-label="Type"><span class="badge badge-type border"><i data-lucide="activity" style="width:10px;height:10px;margin-right:4px;"></i>${w.workoutType}</span></td>
                                                 <td data-label="Intensity">
                                                     <span class="badge ${w.intensity eq 'High' ? 'bg-danger' : (w.intensity eq 'Medium' ? 'bg-warning' : 'bg-success')}">${w.intensity}</span>
                                                 </td>

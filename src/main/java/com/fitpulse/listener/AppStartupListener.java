@@ -58,6 +58,51 @@ public class AppStartupListener implements ServletContextListener {
 
         // Seed 4-5 activity log audit rows for the admin user
         seedAdminActivityLogs();
+
+        // Seed data for the demo user
+        seedDemoUserData();
+    }
+
+    private void seedDemoUserData() {
+        try (Connection conn = DBUtil.getConnection();
+             Statement stmt = conn.createStatement()) {
+
+            // Get user ID
+            java.sql.ResultSet rs = stmt.executeQuery("SELECT id FROM users WHERE email = 'user@fittrack.demo'");
+            if (rs.next()) {
+                int userId = rs.getInt("id");
+
+                // Check and Seed Goals
+                java.sql.ResultSet rsGoals = stmt.executeQuery("SELECT COUNT(*) FROM goals WHERE user_id = " + userId);
+                if (rsGoals.next() && rsGoals.getInt(1) == 0) {
+                    stmt.execute("INSERT INTO goals (user_id, goal_type, target_value, current_value, unit, completed) " +
+                                 "VALUES (" + userId + ", 'Burn 10,000 Kcal this Month', 10000, 0, 'Kcal', FALSE)");
+                    stmt.execute("INSERT INTO goals (user_id, goal_type, target_value, current_value, unit, completed) " +
+                                 "VALUES (" + userId + ", 'Run 50 Km in November', 50, 0, 'Km', FALSE)");
+                }
+
+                // Check and Seed Community Posts (fitness_content)
+                java.sql.ResultSet rsPosts = stmt.executeQuery("SELECT COUNT(*) FROM fitness_content WHERE user_id = " + userId);
+                if (rsPosts.next() && rsPosts.getInt(1) == 0) {
+                    stmt.execute("INSERT INTO fitness_content (user_id, title, content, status) " +
+                                 "VALUES (" + userId + ", 'Optimal Pre-Workout Hydration Strategies', 'Hydration is key. Drink water before you start.', 'APPROVED')");
+                    stmt.execute("INSERT INTO fitness_content (user_id, title, content, status) " +
+                                 "VALUES (" + userId + ", 'Progressive Overload for Hypertrophy', 'Gradually increase the weight you lift to build muscle.', 'APPROVED')");
+                }
+
+                // Check and Seed Body Progress (progress_entries)
+                java.sql.ResultSet rsProgress = stmt.executeQuery("SELECT COUNT(*) FROM progress_entries WHERE user_id = " + userId);
+                if (rsProgress.next() && rsProgress.getInt(1) == 0) {
+                    stmt.execute("INSERT INTO progress_entries (user_id, entry_date, weight_kg, waist_cm, chest_cm, arms_cm) " +
+                                 "VALUES (" + userId + ", CURRENT_DATE - INTERVAL '7 days', 71.5, 85.0, 95.0, 32.0)");
+                    stmt.execute("INSERT INTO progress_entries (user_id, entry_date, weight_kg, waist_cm, chest_cm, arms_cm) " +
+                                 "VALUES (" + userId + ", CURRENT_DATE, 70.0, 83.5, 96.0, 32.5)");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Failed to seed demo user data: " + e.getMessage());
+        }
     }
 
     private void seedAdminActivityLogs() {

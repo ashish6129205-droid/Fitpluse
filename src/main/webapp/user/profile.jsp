@@ -57,8 +57,8 @@
 
             <div class="row">
                 <div class="col-lg-4 mb-4">
-                    <div class="card h-100 border text-center pt-5 pb-4 px-4">
-                        <div class="card-body d-flex flex-column h-100">
+                    <div class="card h-100 border text-center" style="display: flex; flex-direction: column;">
+                        <div class="card-body d-flex flex-column pt-5 pb-4 px-4" style="height: 100%;">
                             <div class="d-flex justify-content-center">
                                 <div class="profile-avatar-large">
                                     <i data-lucide="user" style="width:48px;height:48px;"></i>
@@ -100,7 +100,7 @@
                                         <label class="form-label">Full Name</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i data-lucide="user" style="width:16px;height:16px;"></i></span>
-                                            <input type="text" class="form-control" name="name" value="${sessionScope.loggedUser.name}" style="border: 1px solid #cbd5e1 !important; border-radius: 8px; background-color: #ffffff !important;" required>
+                                            <input type="text" class="form-control" style="border: 1px solid #cbd5e1 !important; border-radius: 8px; background-color: #ffffff !important;" name="name" value="${sessionScope.loggedUser.name}" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -117,20 +117,20 @@
                                     <div class="col-md-4 mb-3">
                                         <label class="form-label">Age</label>
                                         <div class="input-group">
-                                            <input type="number" class="form-control" name="age" value="${sessionScope.loggedUser.age != 0 ? sessionScope.loggedUser.age : ''}" style="border: 1px solid #cbd5e1 !important; border-radius: 8px; background-color: #ffffff !important;" placeholder="Years">
+                                            <input type="number" class="form-control" style="border: 1px solid #cbd5e1 !important; border-radius: 8px; background-color: #ffffff !important;" name="age" value="${sessionScope.loggedUser.age != 0 ? sessionScope.loggedUser.age : ''}" placeholder="Years">
                                         </div>
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <label class="form-label">Height</label>
                                         <div class="input-group">
-                                            <input type="number" step="0.1" class="form-control" name="heightCm" value="${sessionScope.loggedUser.heightCm != 0 ? sessionScope.loggedUser.heightCm : ''}" style="border: 1px solid #cbd5e1 !important; border-radius: 8px; background-color: #ffffff !important;" placeholder="0.0">
+                                            <input type="number" step="0.1" class="form-control" style="border: 1px solid #cbd5e1 !important; border-radius: 8px; background-color: #ffffff !important;" name="heightCm" value="${sessionScope.loggedUser.heightCm != 0 ? sessionScope.loggedUser.heightCm : ''}" placeholder="0.0">
                                             <span class="input-group-text">cm</span>
                                         </div>
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <label class="form-label">Weight</label>
                                         <div class="input-group">
-                                            <input type="number" step="0.1" class="form-control" name="weightKg" value="${sessionScope.loggedUser.weightKg != 0 ? sessionScope.loggedUser.weightKg : ''}" style="border: 1px solid #cbd5e1 !important; border-radius: 8px; background-color: #ffffff !important;" placeholder="0.0">
+                                            <input type="number" step="0.1" class="form-control" style="border: 1px solid #cbd5e1 !important; border-radius: 8px; background-color: #ffffff !important;" name="weightKg" value="${sessionScope.loggedUser.weightKg != 0 ? sessionScope.loggedUser.weightKg : ''}" placeholder="0.0">
                                             <span class="input-group-text">kg</span>
                                         </div>
                                     </div>
@@ -139,7 +139,7 @@
                                 <h6 class="text-secondary fw-bold text-uppercase mb-3 mt-2" style="font-size: 0.75rem; letter-spacing: 0.05em;">Preferences</h6>
                                 <div class="mb-4">
                                     <label class="form-label">Primary Fitness Goal</label>
-                                    <textarea class="form-control" name="fitnessGoal" rows="3" style="border: 1px solid #cbd5e1 !important; border-radius: 8px; background-color: #ffffff !important;" placeholder="Describe what you want to achieve...">${sessionScope.loggedUser.fitnessGoal}</textarea>
+                                    <textarea class="form-control" style="border: 1px solid #cbd5e1 !important; border-radius: 8px; background-color: #ffffff !important;" name="fitnessGoal" rows="3" placeholder="Describe what you want to achieve...">${sessionScope.loggedUser.fitnessGoal}</textarea>
                                 </div>
 
                                 <div class="d-flex justify-content-end mt-4 pt-3 border-top">

@@ -83,18 +83,20 @@
             <label for="email" class="form-label">Email Address</label>
             <div class="input-group">
                 <span class="input-group-text"><i data-lucide="mail" style="width: 18px; height: 18px;"></i></span>
-                <input type="email" class="form-control" id="email" name="email" required placeholder="you@example.com">
+                <input type="email" class="form-control" id="email" name="email" required placeholder="name@example.com">
             </div>
         </div>
 
         <div class="mb-4">
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <label for="password" class="form-label mb-0">Password</label>
-                <a href="${pageContext.request.contextPath}/forgot-password" class="small text-decoration-none fw-medium">Forgot Password?</a>
             </div>
             <div class="input-group">
                 <span class="input-group-text"><i data-lucide="lock" style="width: 18px; height: 18px;"></i></span>
-                <input type="password" class="form-control" id="password" name="password" required placeholder="••••••••">
+                <input type="password" class="form-control" id="password" name="password" required placeholder="Enter your password">
+            </div>
+            <div class="text-end mt-2">
+                <a href="${pageContext.request.contextPath}/forgot-password" class="small text-decoration-none fw-medium">Forgot Password?</a>
             </div>
         </div>
 
