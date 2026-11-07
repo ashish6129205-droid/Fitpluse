@@ -66,49 +66,11 @@ public class UserDashboardServlet extends HttpServlet {
         req.setAttribute("challengesJoined", challengesJoined); // Represents Active Challenges
 
         req.setAttribute("currentStreak", analyticsService.calculateUserStreak(user.getId()));
-
-        java.util.Map<String, Integer> weeklyVolumeMap = analyticsService.calculateWeeklyVolume(user.getId());
-        req.setAttribute("weeklyVolumeMap", weeklyVolumeMap);
+        req.setAttribute("weeklyVolumeMap", analyticsService.calculateWeeklyVolume(user.getId()));
 
         java.util.Map<String, Integer> calData = analyticsService.getWeeklyCalorieData(user.getId());
         req.setAttribute("calLabels", String.join("','", calData.keySet()));
         req.setAttribute("calValues", String.join(",", calData.values().stream().map(String::valueOf).toArray(String[]::new)));
-
-        // Workout Distribution for Doughnut chart
-        // Map types (Running, Strength Training, HIIT, Cycling)
-        int runCount = 0;
-        int strengthCount = 0;
-        int hiitCount = 0;
-        int cycleCount = 0;
-        int otherCount = 0;
-
-        for (Workout w : workouts) {
-            String t = w.getWorkoutType();
-            if (t == null) t = "";
-            t = t.toLowerCase();
-            if (t.contains("run")) runCount++;
-            else if (t.contains("strength") || t.contains("weight")) strengthCount++;
-            else if (t.contains("hiit") || t.contains("interval")) hiitCount++;
-            else if (t.contains("cycl") || t.contains("bike")) cycleCount++;
-            else otherCount++;
-        }
-
-        req.setAttribute("distLabels", "Running','Strength','HIIT','Cycling','Other");
-        req.setAttribute("distValues", runCount + "," + strengthCount + "," + hiitCount + "," + cycleCount + "," + otherCount);
-
-        // Weekly Goal Completion %
-        int totalGoalCount = goals.size();
-        int completedGoalCount = 0;
-        for (Goal g : goals) {
-            if (g.isCompleted()) {
-                completedGoalCount++;
-            }
-        }
-        int goalCompletionPercent = 0;
-        if (totalGoalCount > 0) {
-            goalCompletionPercent = (int) Math.round((double) completedGoalCount / totalGoalCount * 100);
-        }
-        req.setAttribute("goalCompletionPercent", goalCompletionPercent);
 
         req.getRequestDispatcher("/user/dashboard.jsp").forward(req, resp);
     }

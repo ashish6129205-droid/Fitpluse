@@ -9,8 +9,6 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// Stream API Analytics & JUnit Test Verification
-// Reviewed by: Shravan Soam (Reg No: 25SCSE1180127)
 class LeaderboardServiceTest {
 
     @Test
