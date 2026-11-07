@@ -18,6 +18,9 @@
                 <li class="nav-item">
                     <a class="nav-link ${pageContext.request.requestURI.endsWith('/moderation.jsp') ? 'active' : ''}" href="${pageContext.request.contextPath}/admin/moderation">Content Moderation</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link ${pageContext.request.requestURI.endsWith('/settings.jsp') ? 'active' : ''}" href="${pageContext.request.contextPath}/admin/settings">System Settings</a>
+                </li>
                 <li class="nav-item ms-lg-3">
                     <a class="nav-link text-danger" href="${pageContext.request.contextPath}/logout">Logout</a>
                 </li>

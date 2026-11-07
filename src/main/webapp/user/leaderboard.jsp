@@ -40,38 +40,57 @@
             <!-- Podium -->
             <div class="row d-flex align-items-end justify-content-center mb-5 mt-4">
                 <!-- Rank 2 (Silver) -->
-                <c:if test="${leaderboard.size() >= 2}">
-                    <div class="col-4 col-md-3">
-                        <div class="podium-card silver">
-                            <div class="rank-circle">2</div>
-                            <h5 class="text-truncate">${leaderboard.get(1).userName}</h5>
-                            <div class="fw-bold">${leaderboard.get(1).totalCalories} kcal</div>
-                        </div>
+                <div class="col-4 col-md-3">
+                    <div class="podium-card silver">
+                        <div class="rank-circle">2</div>
+                        <c:choose>
+                            <c:when test="${leaderboard.size() >= 2}">
+                                <h5 class="text-truncate">${leaderboard.get(1).userName}</h5>
+                                <div class="fw-bold">${leaderboard.get(1).totalCalories} kcal</div>
+                            </c:when>
+                            <c:otherwise>
+                                <h5 class="text-truncate">Challenge Participant</h5>
+                                <div class="fw-bold">- kcal</div>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
-                </c:if>
+                </div>
 
                 <!-- Rank 1 (Gold) -->
-                <c:if test="${leaderboard.size() >= 1}">
-                    <div class="col-4 col-md-4">
-                        <div class="podium-card gold">
-                            <div class="rank-circle">1</div>
-                            <h4 class="text-truncate">${leaderboard.get(0).userName}</h4>
-                            <div class="fw-bold fs-5">${leaderboard.get(0).totalCalories} kcal</div>
-                            <div class="small">${leaderboard.get(0).workoutCount} Workouts</div>
-                        </div>
+                <div class="col-4 col-md-4">
+                    <div class="podium-card gold">
+                        <div class="rank-circle">1</div>
+                        <c:choose>
+                            <c:when test="${leaderboard.size() >= 1}">
+                                <h4 class="text-truncate">${leaderboard.get(0).userName}</h4>
+                                <div class="fw-bold fs-5">${leaderboard.get(0).totalCalories} kcal</div>
+                                <div class="small">${leaderboard.get(0).workoutCount} Workouts</div>
+                            </c:when>
+                            <c:otherwise>
+                                <h4 class="text-truncate">Challenge Participant</h4>
+                                <div class="fw-bold fs-5">- kcal</div>
+                                <div class="small">- Workouts</div>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
-                </c:if>
+                </div>
 
                 <!-- Rank 3 (Bronze) -->
-                <c:if test="${leaderboard.size() >= 3}">
-                    <div class="col-4 col-md-3">
-                        <div class="podium-card bronze">
-                            <div class="rank-circle">3</div>
-                            <h5 class="text-truncate">${leaderboard.get(2).userName}</h5>
-                            <div class="fw-bold">${leaderboard.get(2).totalCalories} kcal</div>
-                        </div>
+                <div class="col-4 col-md-3">
+                    <div class="podium-card bronze">
+                        <div class="rank-circle">3</div>
+                        <c:choose>
+                            <c:when test="${leaderboard.size() >= 3}">
+                                <h5 class="text-truncate">${leaderboard.get(2).userName}</h5>
+                                <div class="fw-bold">${leaderboard.get(2).totalCalories} kcal</div>
+                            </c:when>
+                            <c:otherwise>
+                                <h5 class="text-truncate">Challenge Participant</h5>
+                                <div class="fw-bold">- kcal</div>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
-                </c:if>
+                </div>
             </div>
 
             <!-- Rest of the ranking -->
