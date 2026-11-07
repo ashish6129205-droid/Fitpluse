@@ -14,7 +14,7 @@
 
 <div class="container mt-4">
     <h2>Manage Users</h2>
-    <div class="table-responsive"><table class="table table-striped table-responsive-stack">
+    <div class="table-wrapper"><table class="table table-striped table-responsive-stack">
         <thead>
             <tr>
                 <th>ID</th>

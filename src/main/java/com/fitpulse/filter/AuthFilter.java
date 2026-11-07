@@ -25,9 +25,7 @@ public class AuthFilter implements Filter {
         // Public paths
         if (path.endsWith("/") || path.endsWith("/login") || path.endsWith("/login.jsp") ||
             path.endsWith("/index.jsp") || path.endsWith("/health") || path.contains("/css/") ||
-            path.endsWith("/register") || path.endsWith("/register.jsp") ||
-            path.endsWith("/forgot-password") || path.endsWith("/forgot-password.jsp") ||
-            path.endsWith("/reset-password") || path.endsWith("/reset-password.jsp")) {
+            path.endsWith("/register") || path.endsWith("/register.jsp")) {
             chain.doFilter(request, response);
             return;
         }

@@ -18,7 +18,7 @@
     <div class="row mt-4">
         <div class="col-md-12">
             <h4 class="mb-3">Live System Activity Logs (Multithreaded)</h4>
-            <div class="table-responsive mb-5">
+            <div class="table-wrapper mb-5">
                 <table class="table table-striped table-responsive-stack">
                     <thead>
                         <tr>
@@ -57,7 +57,7 @@
 
     <div class="tab-content mt-3" id="adminTabsContent">
         <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users-tab">
-            <div class="table-responsive">
+            <div class="table-wrapper">
                 <table class="table table-striped table-responsive-stack">
                     <thead>
                         <tr>
@@ -89,7 +89,7 @@
             </div>
         </div>
         <div class="tab-pane fade" id="workouts" role="tabpanel" aria-labelledby="workouts-tab">
-            <div class="table-responsive">
+            <div class="table-wrapper">
                 <table class="table table-striped table-responsive-stack">
                     <thead>
                         <tr>
