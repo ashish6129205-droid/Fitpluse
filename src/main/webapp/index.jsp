@@ -24,12 +24,12 @@
 <body class="welcome-page">
 <div class="welcome-wrapper w-100 p-0 m-0">
     <!-- Navbar -->
-    <nav class="navbar navbar-dark bg-transparent pt-0 px-0 d-flex justify-content-between w-100" style="border: none !important; position: static;">
+    <nav class="navbar navbar-dark bg-transparent pt-0 px-0 d-flex justify-content-between align-items-center w-100" style="border: none !important; position: static;">
         <a class="navbar-brand fw-bold text-white d-flex align-items-center gap-2 m-0 p-0" href="#" style="font-size: 1.25rem;">
             FitPulse <span class="bg-success rounded-circle shadow-sm" style="width: 8px; height: 8px; box-shadow: 0 0 10px #10b981 !important; background-color: #10b981 !important;"></span>
         </a>
         <div>
-            <a href="${pageContext.request.contextPath}/login" style="border: 1px solid rgba(255,255,255,0.2); padding: 6px 18px; border-radius: 8px; color: #fff; text-decoration: none; font-size: 0.95rem; font-weight: 500;">Login</a>
+            <a href="${pageContext.request.contextPath}/login" class="welcome-nav-login-btn">Login</a>
         </div>
     </nav>
 
