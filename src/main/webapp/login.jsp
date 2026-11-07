@@ -30,8 +30,11 @@
                     <input type="email" class="form-control" id="email" name="email" required>
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <label for="password" class="form-label mb-0">Password</label>
+                        <a href="${pageContext.request.contextPath}/forgot-password" class="text-decoration-none small text-primary">Forgot Password?</a>
+                    </div>
+                    <input type="password" class="form-control mt-2" id="password" name="password" required>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Login</button>
             </form>
